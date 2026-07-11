@@ -1,375 +1,204 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wells Fargo | Financial Services & Online Banking</title>
+    <title>Wells Fargo Bank | Financial Services &amp; Online Banking</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@700&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
         
         body { font-family: 'Inter', system-ui, sans-serif; }
-        .logo-font { font-family: 'Playfair Display', serif; }
         
-        .hero-bg {
-            background: linear-gradient(135deg, rgba(0,45,98,0.92), rgba(215,30,40,0.85)), 
-                        url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
-            background-attachment: fixed;
-        }
-        
-        .nav-link {
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .nav-link:after {
-            content: '';
+        .hero-slide {
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #d71e28;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover:after { width: 100%; }
-        
-        .card-hover {
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .card-hover:hover {
-            transform: translateY(-12px) scale(1.03);
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+            background-size: cover;
+            background-position: center;
         }
         
-        .rate-ticker {
-            overflow: hidden;
-            white-space: nowrap;
+        .hero-slide.active {
+            opacity: 1;
+            z-index: 1;
         }
         
-        .modal {
-            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        .carousel-dot {
+            transition: all 0.3s ease;
         }
-        @keyframes modalPop {
-            0% { opacity: 0; transform: scale(0.7); }
-            100% { opacity: 1; transform: scale(1); }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
         }
     </style>
 </head>
-<body class="bg-zinc-50 text-zinc-900">
+<body class="bg-white">
 
-    <!-- Top Ticker -->
-    <div class="bg-[#002d62] text-white py-1.5 text-sm overflow-hidden">
-        <div class="rate-ticker flex items-center gap-8 px-6">
-            <span class="font-medium flex-shrink-0">Today's Rates • </span>
-            <span class="flex items-center gap-6 animate-marquee">
-                Savings: <span class="text-emerald-400 font-semibold">4.35% APY</span> • 
-                30-yr Mortgage: <span class="font-semibold">6.49%</span> • 
-                Auto Loan: <span class="font-semibold">5.74%</span> • 
-                Prime Checking: <span class="text-emerald-400">Earn $300 Bonus</span>
-            </span>
+    <!-- Top Bar -->
+    <div class="bg-[#002d62] text-white py-3 text-sm hidden md:block">
+        <div class="max-w-screen-2xl mx-auto px-8 flex justify-between items-center">
+            <div class="flex items-center gap-8">
+                <a href="#" class="hover:underline">Find a Location</a>
+                <a href="#" class="hover:underline">Make an Appointment</a>
+            </div>
+            <button onclick="fakeSignOn()" class="bg-white text-[#002d62] px-8 py-2 rounded-xl font-medium">Sign On</button>
         </div>
     </div>
 
     <!-- Header -->
-    <header class="bg-white border-b sticky top-0 z-50 shadow-sm">
-        <div class="max-w-screen-2xl mx-auto">
-            <div class="px-8 py-5 flex items-center justify-between">
-                <div class="flex items-center gap-x-4">
-                    <div onclick="window.location.reload()" class="flex items-center gap-3 cursor-pointer group">
-                        <div class="w-11 h-11 bg-gradient-to-br from-[#d71e28] to-[#002d62] text-white flex items-center justify-center text-3xl font-black rounded-2xl shadow-inner group-active:scale-95 transition">WF</div>
-                        <div>
-                            <span class="logo-font text-4xl tracking-tighter font-bold text-[#002d62]">Wells Fargo</span>
-                        </div>
-                    </div>
-                </div>
+    <header class="sticky top-0 bg-white border-b z-50">
+        <div class="max-w-screen-2xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-[#d71e28] flex items-center justify-center text-white text-4xl font-black rounded-3xl">WF</div>
+                <div class="text-4xl font-bold tracking-tighter text-[#002d62]">Wells Fargo</div>
+            </div>
 
-                <nav class="hidden lg:flex items-center gap-x-9 text-[17px] font-medium">
-                    <a href="#" class="nav-link text-zinc-700 hover:text-[#d71e28]">Banking</a>
-                    <a href="#" class="nav-link text-zinc-700 hover:text-[#d71e28]">Credit Cards</a>
-                    <a href="#" class="nav-link text-zinc-700 hover:text-[#d71e28]">Home Lending</a>
-                    <a href="#" class="nav-link text-zinc-700 hover:text-[#d71e28]">Loans &amp; Lines</a>
-                    <a href="#" class="nav-link text-zinc-700 hover:text-[#d71e28]">Investing &amp; Retirement</a>
-                    <a href="#" class="nav-link text-zinc-700 hover:text-[#d71e28]">Wealth Management</a>
-                </nav>
+            <nav class="hidden md:flex gap-10 text-lg font-medium">
+                <a href="#" class="hover:text-[#d71e28]">Banking</a>
+                <a href="#" class="hover:text-[#d71e28]">Credit Cards</a>
+                <a href="#" class="hover:text-[#d71e28]">Home Lending</a>
+                <a href="#" class="hover:text-[#d71e28]">Loans</a>
+                <a href="#" class="hover:text-[#d71e28]">Investing</a>
+            </nav>
 
-                <div class="flex items-center gap-x-4">
-                    <button onclick="toggleSearch()" 
-                            class="w-11 h-11 flex items-center justify-center text-2xl text-zinc-500 hover:text-zinc-700 transition rounded-2xl hover:bg-zinc-100">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    
-                    <button onclick="enterDemoMode()" 
-                            class="flex items-center gap-x-3 bg-[#002d62] hover:bg-[#001f45] text-white px-7 py-3.5 rounded-3xl font-semibold transition-all active:scale-95">
-                        <i class="fas fa-user-circle"></i>
-                        <span>Demo Sign On</span>
-                    </button>
-                </div>
+            <div class="flex items-center gap-5">
+                <button onclick="fakeSignOn()" class="hidden md:block bg-[#002d62] text-white px-8 py-3.5 rounded-3xl font-semibold">Sign On</button>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-3xl">☰</button>
             </div>
         </div>
     </header>
 
-    <!-- HERO -->
-    <section class="hero-bg h-screen flex items-center text-white relative overflow-hidden">
-        <div class="max-w-screen-2xl mx-auto px-8 relative z-10">
-            <div class="max-w-2xl">
-                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-5 py-2 rounded-3xl mb-6 text-sm font-medium">
-                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                    NEW: AI-Powered Insights with Fargo
-                </div>
-                
-                <h1 class="text-7xl leading-none font-bold tracking-tighter mb-6">
-                    Your money.<br>Your future.<br><span class="text-[#ffcc00]">Your way.</span>
-                </h1>
-                
-                <p class="text-2xl mb-10 text-white/90">Banking that feels personal. Tools that actually help. Security you can trust.</p>
-                
-                <div class="flex flex-wrap gap-4">
-                    <button onclick="enterDemoMode()" 
-                            class="bg-white text-[#002d62] px-10 py-5 rounded-3xl font-semibold text-lg hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-3">
-                        <i class="fas fa-arrow-right"></i>
-                        Sign On Securely
-                    </button>
-                    <button onclick="exploreProducts()" 
-                            class="border-2 border-white/80 hover:border-white px-10 py-5 rounded-3xl font-semibold text-lg transition-all">
-                        Explore Products
-                    </button>
-                </div>
-                
-                <div class="mt-12 flex items-center gap-8 text-sm">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-shield-alt text-3xl"></i>
-                        <div>
-                            <div class="font-semibold">Bank-level Security</div>
-                            <div class="text-white/70">Fraud protection included</div>
-                        </div>
+    <!-- Premium Hero Carousel -->
+    <div class="relative h-screen overflow-hidden">
+        <!-- Slide 1 -->
+        <div id="slide-1" class="hero-slide active" 
+             style="background-image: linear-gradient(rgba(0, 45, 98, 0.65), rgba(0, 45, 98, 0.75)), url('https://picsum.photos/id/1015/2000/1200')">
+            <div class="absolute inset-0 flex items-center">
+                <div class="max-w-2xl mx-auto px-8 text-white text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-6 py-3 rounded-3xl mb-6">
+                        <span class="text-emerald-400">●</span> Limited Time
                     </div>
-                    <div class="h-9 w-px bg-white/30"></div>
-                    <div>4.8 ★★★★☆ from 128k reviews</div>
+                    <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-4">Earn up to $525 Bonus</h1>
+                    <p class="text-2xl md:text-3xl mb-10">Open a new checking account and enjoy everyday banking made simple.</p>
+                    <button onclick="fakeSignOn()" 
+                            class="bg-white text-[#002d62] px-12 py-5 rounded-3xl text-xl font-semibold hover:scale-105 transition">Open Account Now</button>
                 </div>
             </div>
         </div>
 
-        <!-- Floating badges -->
-        <div class="absolute bottom-12 right-12 bg-white/95 text-zinc-900 rounded-3xl p-6 shadow-2xl max-w-[260px] hidden xl:block">
-            <div class="flex justify-between items-start">
-                <div>
-                    <div class="text-emerald-600 text-sm font-semibold">Clear Access Banking</div>
-                    <div class="text-4xl font-bold mt-1">$125 Bonus</div>
+        <!-- Slide 2 -->
+        <div id="slide-2" class="hero-slide" 
+             style="background-image: linear-gradient(rgba(0, 45, 98, 0.65), rgba(0, 45, 98, 0.75)), url('https://picsum.photos/id/201/2000/1200')">
+            <div class="absolute inset-0 flex items-center">
+                <div class="max-w-2xl mx-auto px-8 text-white text-center md:text-left">
+                    <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-4">Home Loans from 6.49%</h1>
+                    <p class="text-2xl md:text-3xl mb-10">Buy, refinance, or build your dream home with confidence.</p>
+                    <button onclick="showProduct('mortgage')" 
+                            class="border-2 border-white px-12 py-5 rounded-3xl text-xl font-semibold hover:bg-white hover:text-[#002d62] transition">Get Pre-Approved</button>
                 </div>
-                <div class="text-5xl">🎁</div>
             </div>
-            <button onclick="claimBonus()" class="mt-6 w-full bg-[#d71e28] text-white py-3.5 rounded-2xl font-semibold">Claim Offer</button>
         </div>
-    </section>
 
-    <!-- Live Rates -->
-    <div class="bg-white py-6 border-b">
-        <div class="max-w-screen-2xl mx-auto px-8">
-            <div class="flex items-center justify-between text-sm">
-                <div class="font-medium text-zinc-500">Live Rates as of July 11, 2026</div>
-                <div class="flex gap-10">
-                    <div><span class="font-semibold">Savings APY:</span> <span class="text-emerald-600 font-bold">4.35%</span></div>
-                    <div><span class="font-semibold">30-Yr Fixed:</span> <span class="font-bold">6.49%</span></div>
-                    <div><span class="font-semibold">Prime Rate:</span> <span class="font-bold">7.50%</span></div>
+        <!-- Slide 3 -->
+        <div id="slide-3" class="hero-slide" 
+             style="background-image: linear-gradient(rgba(0, 45, 98, 0.65), rgba(0, 45, 98, 0.75)), url('https://picsum.photos/id/870/2000/1200')">
+            <div class="absolute inset-0 flex items-center">
+                <div class="max-w-2xl mx-auto px-8 text-white text-center md:text-left">
+                    <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-4">2% Cash Back on Everything</h1>
+                    <p class="text-2xl md:text-3xl mb-10">No categories. No limits. Just rewards.</p>
+                    <button onclick="showProduct('credit')" 
+                            class="bg-white text-[#002d62] px-12 py-5 rounded-3xl text-xl font-semibold hover:scale-105 transition">Apply for Active Cash®</button>
                 </div>
             </div>
         </div>
+
+        <!-- Controls -->
+        <div class="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+            <button onclick="currentSlide=1;showCurrent()" class="carousel-dot w-4 h-4 rounded-full bg-white"></button>
+            <button onclick="currentSlide=2;showCurrent()" class="carousel-dot w-4 h-4 rounded-full bg-white/40 hover:bg-white/70"></button>
+            <button onclick="currentSlide=3;showCurrent()" class="carousel-dot w-4 h-4 rounded-full bg-white/40 hover:bg-white/70"></button>
+        </div>
+
+        <button onclick="prevSlide()" class="absolute left-8 top-1/2 -translate-y-1/2 text-white text-5xl opacity-70 hover:opacity-100 hidden md:block">‹</button>
+        <button onclick="nextSlide()" class="absolute right-8 top-1/2 -translate-y-1/2 text-white text-5xl opacity-70 hover:opacity-100 hidden md:block">›</button>
     </div>
 
-    <!-- Product Grid -->
-    <section class="py-20 bg-white">
-        <div class="max-w-screen-2xl mx-auto px-8">
-            <h2 class="text-5xl font-bold tracking-tight text-center mb-4">Banking Made Beautiful</h2>
-            <p class="text-center text-zinc-600 text-xl max-w-md mx-auto mb-16">Choose what matters most to you</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Repeat cards with premium styling -->
-                <div onclick="viewProduct(1)" class="card-hover bg-white border border-zinc-100 rounded-3xl overflow-hidden group cursor-pointer">
-                    <div class="h-64 bg-gradient-to-br from-blue-600 to-cyan-500 flex items-end p-8">
-                        <div class="text-white">
-                            <div class="uppercase tracking-widest text-xs mb-2">CHECKING</div>
-                            <div class="text-4xl font-semibold">Everyday Checking</div>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <div class="text-emerald-600 font-bold text-3xl">$300</div>
-                                <div class="text-sm text-zinc-500">welcome bonus</div>
-                            </div>
-                            <button class="bg-zinc-900 text-white px-8 py-3 rounded-2xl text-sm font-medium group-hover:bg-[#d71e28] transition-colors">Open Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div onclick="viewProduct(2)" class="card-hover bg-white border border-zinc-100 rounded-3xl overflow-hidden group cursor-pointer">
-                    <div class="h-64 bg-gradient-to-br from-purple-600 to-pink-500 flex items-end p-8">
-                        <div class="text-white">
-                            <div class="uppercase tracking-widest text-xs mb-2">CREDIT</div>
-                            <div class="text-4xl font-semibold">Active Cash® Card</div>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <div class="text-4xl font-bold">2% Cash Back</div>
-                        <div class="text-zinc-500">on everything. Unlimited.</div>
-                        <button class="mt-8 w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-2xl font-semibold">Apply Today</button>
-                    </div>
-                </div>
-
-                <div onclick="viewProduct(3)" class="card-hover bg-white border border-zinc-100 rounded-3xl overflow-hidden group cursor-pointer">
-                    <div class="h-64 bg-gradient-to-br from-amber-600 to-red-600 flex items-end p-8">
-                        <div class="text-white">
-                            <div class="uppercase tracking-widest text-xs mb-2">HOME</div>
-                            <div class="text-4xl font-semibold">Mortgage Rates Dropping</div>
-                        </div>
-                    </div>
-                    <div class="p-8 space-y-6">
-                        <div class="flex justify-between">
-                            <div>30 Year Fixed</div>
-                            <div class="font-bold">6.49% <span class="text-xs text-emerald-500">↓0.12</span></div>
-                        </div>
-                        <button class="w-full py-4 border-2 border-zinc-900 rounded-2xl font-semibold hover:bg-zinc-900 hover:text-white transition">Get Pre-Approved</button>
-                    </div>
-                </div>
-            </div>
+    <!-- Quick Links -->
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-200">
+        <div onclick="showProduct('checking')" class="bg-white p-8 hover:bg-gray-50 cursor-pointer">
+            <span class="block text-5xl mb-4">🏦</span>
+            <span class="font-semibold text-xl">Checking</span>
         </div>
-    </section>
-
-    <!-- Demo Dashboard Preview -->
-    <section id="demo-section" class="py-20 bg-zinc-900 text-white hidden">
-        <div class="max-w-screen-2xl mx-auto px-8">
-            <div class="flex items-center justify-between mb-8">
-                <div class="flex items-center gap-x-4">
-                    <div class="text-emerald-400"><i class="fas fa-circle-check text-2xl"></i></div>
-                    <div>
-                        <div class="font-semibold">Welcome back, Alex Rivera</div>
-                        <div class="text-sm text-zinc-400">Last login: moments ago</div>
-                    </div>
-                </div>
-                <button onclick="exitDemoMode()" class="text-sm flex items-center gap-2 text-zinc-400 hover:text-white">
-                    <i class="fas fa-sign-out-alt"></i> Exit Demo
-                </button>
-            </div>
-            
-            <div class="grid grid-cols-12 gap-6">
-                <!-- Account Balances -->
-                <div class="col-span-12 lg:col-span-5 bg-zinc-800/70 backdrop-blur-xl rounded-3xl p-8">
-                    <h3 class="uppercase text-xs tracking-widest mb-6 text-zinc-400">Your Balances</h3>
-                    <div class="space-y-8">
-                        <div class="flex justify-between items-center">
-                            <div>Clear Access Checking</div>
-                            <div class="text-right">
-                                <div class="text-3xl font-semibold">$8,472.91</div>
-                                <div class="text-emerald-400 text-sm">+ $320 this month</div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>Way2Save Savings</div>
-                            <div class="text-right">
-                                <div class="text-3xl font-semibold">$24,850.00</div>
-                                <div class="text-emerald-400 text-sm">4.35% APY</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Spending Chart Placeholder -->
-                <div class="col-span-12 lg:col-span-7 bg-zinc-800/70 backdrop-blur-xl rounded-3xl p-8">
-                    <h3 class="uppercase text-xs tracking-widest mb-6 text-zinc-400">Spending this month • Powered by Fargo AI</h3>
-                    <div class="h-64 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-rose-500 rounded-2xl flex items-center justify-center text-white/70 text-sm font-medium">
-                        [Interactive Spending Chart - Canvas would go here in full project]
-                    </div>
-                </div>
-            </div>
+        <div onclick="showProduct('credit')" class="bg-white p-8 hover:bg-gray-50 cursor-pointer">
+            <span class="block text-5xl mb-4">💳</span>
+            <span class="font-semibold text-xl">Credit Cards</span>
         </div>
-    </section>
-
-    <footer class="bg-zinc-950 text-zinc-400 py-20">
-        <div class="max-w-screen-2xl mx-auto px-8 text-center">
-            <p class="text-xs">This is a premium educational replica built for final year project demonstration only.<br>All rights and trademarks belong to Wells Fargo &amp; Company.</p>
-            <p class="mt-8 text-[10px]">Made with ❤️ in God Mode • July 2026</p>
+        <div onclick="showProduct('mortgage')" class="bg-white p-8 hover:bg-gray-50 cursor-pointer">
+            <span class="block text-5xl mb-4">🏠</span>
+            <span class="font-semibold text-xl">Mortgages</span>
         </div>
-    </footer>
-
-    <!-- Search Modal -->
-    <div id="searchModal" class="hidden fixed inset-0 bg-black/80 z-[999] flex items-start justify-center pt-32">
-        <div class="bg-white w-full max-w-2xl mx-4 rounded-3xl shadow-2xl overflow-hidden">
-            <div class="p-6 border-b flex items-center gap-4">
-                <i class="fas fa-search text-2xl text-zinc-400"></i>
-                <input id="globalSearch" type="text" placeholder="Search accounts, products, help..." 
-                       class="flex-1 outline-none text-xl placeholder-zinc-400">
-                <button onclick="toggleSearch()" class="font-medium text-zinc-400">esc</button>
-            </div>
+        <div onclick="showProduct('invest')" class="bg-white p-8 hover:bg-gray-50 cursor-pointer">
+            <span class="block text-5xl mb-4">📈</span>
+            <span class="font-semibold text-xl">Investing</span>
         </div>
     </div>
 
     <script>
-        function tailwindInit() {
-            // Already using Tailwind via CDN
-        }
-        
-        function enterDemoMode() {
-            document.getElementById('demo-section').classList.remove('hidden');
-            document.getElementById('demo-section').scrollIntoView({ behavior: "smooth" });
-            
-            const notif = document.createElement('div');
-            notif.style.cssText = 'position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#d71e28; color:white; padding:16px 32px; border-radius:9999px; font-weight:600; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3); z-index:9999;';
-            notif.innerHTML = '✅ Welcome to your demo dashboard!';
-            document.body.appendChild(notif);
-            
-            setTimeout(() => notif.remove(), 2800);
-        }
-        
-        function exitDemoMode() {
-            document.getElementById('demo-section').classList.add('hidden');
-        }
-        
-        function toggleSearch() {
-            const modal = document.getElementById('searchModal');
-            modal.classList.toggle('hidden');
-            if (!modal.classList.contains('hidden')) {
-                setTimeout(() => document.getElementById('globalSearch').focus(), 300);
+        let currentSlide = 1;
+        const totalSlides = 3;
+
+        function showCurrent() {
+            for (let i = 1; i <= totalSlides; i++) {
+                const slide = document.getElementById(`slide-${i}`);
+                if (slide) {
+                    slide.classList.toggle('active', i === currentSlide);
+                }
             }
         }
-        
-        function viewProduct(n) {
-            const messages = [
-                "", 
-                "Opening premium checking account experience...",
-                "Launching Active Cash credit card application...",
-                "Connecting you to mortgage pre-approval tools..."
-            ];
-            alert(messages[n] + "\n\n(Full interactive flow would continue here in a complete project.)");
+
+        function nextSlide() {
+            currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
+            showCurrent();
         }
-        
-        function claimBonus() {
-            alert("🎉 $125 Bonus Offer Claimed!\n\nThank you for banking with Wells Fargo (Demo).");
+
+        function prevSlide() {
+            currentSlide = currentSlide === 1 ? totalSlides : currentSlide - 1;
+            showCurrent();
         }
-        
-        function exploreProducts() {
-            document.querySelector('section.py-20').scrollIntoView({ behavior: "smooth" });
+
+        // Auto rotate
+        setInterval(() => {
+            nextSlide();
+        }, 5500);
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
         }
-        
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "Escape") {
-                const search = document.getElementById('searchModal');
-                if (!search.classList.contains('hidden')) toggleSearch();
-            }
-            if (e.metaKey && e.key === "k") {
-                e.preventDefault();
-                toggleSearch();
-            }
-        });
-        
-        // Auto marquee animation
-        console.log("%c🌟 Premium Wells Fargo Replica Loaded in God Mode 🌟\nInteractive. Beautiful. Production-grade ready for your defense.", "color:#d71e28; font-family:monospace; font-size:13px");
-        
+
+        function fakeSignOn() {
+            alert("🔐 Signed in to Wells Fargo Online (Demo Mode)");
+        }
+
+        function showProduct(cat) {
+            const info = {
+                checking: "Clear Access Banking – Earn $125 Bonus",
+                credit: "Active Cash® – Unlimited 2% Cash Back",
+                mortgage: "Mortgage rates as low as 6.49%",
+                invest: "Start investing with confidence"
+            };
+            alert(info[cat] || "Explore our solutions (Educational Demo)");
+        }
+
         // Initialize
         window.onload = () => {
-            console.log("✅ Project ready for presentation.");
+            showCurrent();
+            console.log("%c✅ Premium Sliding Hero + Responsive Design Loaded", "color:#d71e28;font-weight:bold");
         };
     </script>
 </body>
