@@ -3,203 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wells Fargo Bank | Financial Services &amp; Online Banking</title>
+    <title>Wells Fargo | Banking & Financial Services</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
         
         body { font-family: 'Inter', system-ui, sans-serif; }
+        .logo-font { font-family: 'Playfair Display', serif; }
         
         .hero-slide {
             position: absolute;
             inset: 0;
             opacity: 0;
-            transition: opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
             background-size: cover;
             background-position: center;
         }
+        .hero-slide.active { opacity: 1; }
         
-        .hero-slide.active {
-            opacity: 1;
-            z-index: 1;
+        .nav-link { position: relative; }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: #d71e28;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after { width: 100%; }
+        
+        .card-hover {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-20px) scale(1.03);
         }
         
-        .carousel-dot {
-            transition: all 0.3s ease;
+        .chat-bubble {
+            animation: bubbleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        
-        .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-        }
-        .mobile-menu.open {
-            transform: translateX(0);
+        @keyframes bubbleIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.8); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
     </style>
 </head>
-<body class="bg-white">
+<body class="bg-zinc-50">
 
     <!-- Top Bar -->
-    <div class="bg-[#002d62] text-white py-3 text-sm hidden md:block">
-        <div class="max-w-screen-2xl mx-auto px-8 flex justify-between items-center">
+    <div class="bg-[#002d62] text-white text-sm py-3">
+        <div class="max-w-screen-2xl mx-auto px-8 flex items-center justify-between">
             <div class="flex items-center gap-8">
-                <a href="#" class="hover:underline">Find a Location</a>
-                <a href="#" class="hover:underline">Make an Appointment</a>
+                <a href="#" class="hover:underline">Find Locations</a>
+                <a href="#" class="hover:underline">Appointments</a>
             </div>
-            <button onclick="fakeSignOn()" class="bg-white text-[#002d62] px-8 py-2 rounded-xl font-medium">Sign On</button>
+            <button onclick="fakeSignOn()" class="bg-white text-[#002d62] px-8 py-2 rounded-3xl font-semibold hover:bg-gray-100">Sign On</button>
         </div>
     </div>
 
     <!-- Header -->
-    <header class="sticky top-0 bg-white border-b z-50">
-        <div class="max-w-screen-2xl mx-auto px-6 py-5 flex items-center justify-between">
+    <header class="bg-white sticky top-0 z-50 border-b">
+        <div class="max-w-screen-2xl mx-auto px-8 py-6 flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-[#d71e28] flex items-center justify-center text-white text-4xl font-black rounded-3xl">WF</div>
-                <div class="text-4xl font-bold tracking-tighter text-[#002d62]">Wells Fargo</div>
+                <div class="w-14 h-14 bg-[#d71e28] text-white rounded-3xl flex items-center justify-center text-5xl font-black">WF</div>
+                <div class="logo-font text-4xl font-bold tracking-tighter text-[#002d62]">Wells Fargo</div>
             </div>
-
+            
             <nav class="hidden md:flex gap-10 text-lg font-medium">
-                <a href="#" class="hover:text-[#d71e28]">Banking</a>
-                <a href="#" class="hover:text-[#d71e28]">Credit Cards</a>
-                <a href="#" class="hover:text-[#d71e28]">Home Lending</a>
-                <a href="#" class="hover:text-[#d71e28]">Loans</a>
-                <a href="#" class="hover:text-[#d71e28]">Investing</a>
+                <a href="#" class="nav-link">Banking</a>
+                <a href="#" class="nav-link">Credit Cards</a>
+                <a href="#" class="nav-link">Home Lending</a>
+                <a href="#" class="nav-link">Loans</a>
+                <a href="#" class="nav-link">Investing</a>
             </nav>
-
-            <div class="flex items-center gap-5">
-                <button onclick="fakeSignOn()" class="hidden md:block bg-[#002d62] text-white px-8 py-3.5 rounded-3xl font-semibold">Sign On</button>
-                <button onclick="toggleMobileMenu()" class="md:hidden text-3xl">☰</button>
-            </div>
+            
+            <button onclick="toggleMobileMenu()" class="md:hidden text-4xl">☰</button>
         </div>
     </header>
 
     <!-- Premium Hero Carousel -->
     <div class="relative h-screen overflow-hidden">
-        <!-- Slide 1 -->
-        <div id="slide-1" class="hero-slide active" 
-             style="background-image: linear-gradient(rgba(0, 45, 98, 0.65), rgba(0, 45, 98, 0.75)), url('https://picsum.photos/id/1015/2000/1200')">
-            <div class="absolute inset-0 flex items-center">
-                <div class="max-w-2xl mx-auto px-8 text-white text-center md:text-left">
-                    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-6 py-3 rounded-3xl mb-6">
-                        <span class="text-emerald-400">●</span> Limited Time
-                    </div>
-                    <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-4">Earn up to $525 Bonus</h1>
-                    <p class="text-2xl md:text-3xl mb-10">Open a new checking account and enjoy everyday banking made simple.</p>
-                    <button onclick="fakeSignOn()" 
-                            class="bg-white text-[#002d62] px-12 py-5 rounded-3xl text-xl font-semibold hover:scale-105 transition">Open Account Now</button>
-                </div>
+        <div id="slide1" class="hero-slide active" style="background-image: linear-gradient(rgba(0,45,98,0.75), rgba(0,45,98,0.85)), url('https://picsum.photos/id/1015/2000/1400')"></div>
+        <div id="slide2" class="hero-slide" style="background-image: linear-gradient(rgba(0,45,98,0.75), rgba(0,45,98,0.85)), url('https://picsum.photos/id/201/2000/1400')"></div>
+        <div id="slide3" class="hero-slide" style="background-image: linear-gradient(rgba(0,45,98,0.75), rgba(0,45,98,0.85)), url('https://picsum.photos/id/870/2000/1400')"></div>
+
+        <div class="absolute inset-0 flex items-center z-10">
+            <div class="max-w-4xl mx-auto px-8 text-white text-center">
+                <h1 id="heroTitle" class="text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-6">Your Money. Your Future.</h1>
+                <p id="heroDesc" class="text-2xl mb-10">Earn up to $525 bonus with new checking accounts</p>
+                <button onclick="fakeSignOn()" class="bg-white text-[#002d62] px-14 py-6 rounded-3xl text-2xl font-semibold hover:scale-105 transition">Open Account Today</button>
             </div>
         </div>
 
-        <!-- Slide 2 -->
-        <div id="slide-2" class="hero-slide" 
-             style="background-image: linear-gradient(rgba(0, 45, 98, 0.65), rgba(0, 45, 98, 0.75)), url('https://picsum.photos/id/201/2000/1200')">
-            <div class="absolute inset-0 flex items-center">
-                <div class="max-w-2xl mx-auto px-8 text-white text-center md:text-left">
-                    <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-4">Home Loans from 6.49%</h1>
-                    <p class="text-2xl md:text-3xl mb-10">Buy, refinance, or build your dream home with confidence.</p>
-                    <button onclick="showProduct('mortgage')" 
-                            class="border-2 border-white px-12 py-5 rounded-3xl text-xl font-semibold hover:bg-white hover:text-[#002d62] transition">Get Pre-Approved</button>
-                </div>
-            </div>
+        <!-- Carousel Controls -->
+        <div class="absolute bottom-12 left-1/2 flex gap-4 -translate-x-1/2 z-20">
+            <button onclick="goToSlide(1)" class="w-4 h-4 rounded-full bg-white"></button>
+            <button onclick="goToSlide(2)" class="w-4 h-4 rounded-full bg-white/50"></button>
+            <button onclick="goToSlide(3)" class="w-4 h-4 rounded-full bg-white/50"></button>
         </div>
-
-        <!-- Slide 3 -->
-        <div id="slide-3" class="hero-slide" 
-             style="background-image: linear-gradient(rgba(0, 45, 98, 0.65), rgba(0, 45, 98, 0.75)), url('https://picsum.photos/id/870/2000/1200')">
-            <div class="absolute inset-0 flex items-center">
-                <div class="max-w-2xl mx-auto px-8 text-white text-center md:text-left">
-                    <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-4">2% Cash Back on Everything</h1>
-                    <p class="text-2xl md:text-3xl mb-10">No categories. No limits. Just rewards.</p>
-                    <button onclick="showProduct('credit')" 
-                            class="bg-white text-[#002d62] px-12 py-5 rounded-3xl text-xl font-semibold hover:scale-105 transition">Apply for Active Cash®</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Controls -->
-        <div class="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-4 z-20">
-            <button onclick="currentSlide=1;showCurrent()" class="carousel-dot w-4 h-4 rounded-full bg-white"></button>
-            <button onclick="currentSlide=2;showCurrent()" class="carousel-dot w-4 h-4 rounded-full bg-white/40 hover:bg-white/70"></button>
-            <button onclick="currentSlide=3;showCurrent()" class="carousel-dot w-4 h-4 rounded-full bg-white/40 hover:bg-white/70"></button>
-        </div>
-
-        <button onclick="prevSlide()" class="absolute left-8 top-1/2 -translate-y-1/2 text-white text-5xl opacity-70 hover:opacity-100 hidden md:block">‹</button>
-        <button onclick="nextSlide()" class="absolute right-8 top-1/2 -translate-y-1/2 text-white text-5xl opacity-70 hover:opacity-100 hidden md:block">›</button>
     </div>
 
-    <!-- Quick Links -->
-    <div class="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-200">
-        <div onclick="showProduct('checking')" class="bg-white p-8 hover:bg-gray-50 cursor-pointer">
-            <span class="block text-5xl mb-4">🏦</span>
-            <span class="font-semibold text-xl">Checking</span>
+    <!-- Products -->
+    <div class="max-w-screen-2xl mx-auto px-8 py-24">
+        <h2 class="text-5xl font-bold text-center mb-16">What are you looking for?</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div onclick="showProduct('checking')" class="card-hover bg-white rounded-3xl overflow-hidden border cursor-pointer">
+                <img src="https://picsum.photos/id/1015/600/280" class="w-full h-64 object-cover" alt="Checking">
+                <div class="p-8">
+                    <h3 class="text-2xl font-semibold">Checking Accounts</h3>
+                    <p class="text-emerald-600 font-medium">$125 Bonus</p>
+                </div>
+            </div>
+            <div onclick="showProduct('credit')" class="card-hover bg-white rounded-3xl overflow-hidden border cursor-pointer">
+                <img src="https://picsum.photos/id/201/600/280" class="w-full h-64 object-cover" alt="Credit">
+                <div class="p-8">
+                    <h3 class="text-2xl font-semibold">Credit Cards</h3>
+                    <p class="text-emerald-600 font-medium">2% Cash Back</p>
+                </div>
+            </div>
+            <div onclick="showProduct('mortgage')" class="card-hover bg-white rounded-3xl overflow-hidden border cursor-pointer">
+                <img src="https://picsum.photos/id/870/600/280" class="w-full h-64 object-cover" alt="Mortgage">
+                <div class="p-8">
+                    <h3 class="text-2xl font-semibold">Mortgages</h3>
+                    <p class="text-emerald-600 font-medium">Rates from 6.49%</p>
+                </div>
+            </div>
+            <div onclick="showProduct('invest')" class="card-hover bg-white rounded-3xl overflow-hidden border cursor-pointer">
+                <img src="https://picsum.photos/id/133/600/280" class="w-full h-64 object-cover" alt="Invest">
+                <div class="p-8">
+                    <h3 class="text-2xl font-semibold">Investing</h3>
+                    <p class="text-emerald-600 font-medium">Grow your wealth</p>
+                </div>
+            </div>
         </div>
-        <div onclick="showProduct('credit')" class="bg-white p-8 hover:bg-gray-50 cursor-pointer">
-            <span class="block text-5xl mb-4">💳</span>
-            <span class="font-semibold text-xl">Credit Cards</span>
+    </div>
+
+    <!-- Detailed Footer -->
+    <footer class="bg-[#002d62] text-white pt-20 pb-12">
+        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-5 gap-12">
+            <div>
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-14 h-14 bg-white text-[#002d62] rounded-3xl flex items-center justify-center text-5xl font-black">WF</div>
+                    <div class="text-4xl font-bold">Wells Fargo</div>
+                </div>
+                <p class="opacity-75 text-sm">Member FDIC • Equal Housing Lender</p>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold mb-6">Banking</h4>
+                <div class="space-y-3 text-sm opacity-75">
+                    <div>Checking</div>
+                    <div>Savings &amp; CDs</div>
+                    <div>Debit Cards</div>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold mb-6">Borrow &amp; Credit</h4>
+                <div class="space-y-3 text-sm opacity-75">
+                    <div>Mortgages</div>
+                    <div>Auto Loans</div>
+                    <div>Personal Loans</div>
+                    <div>Credit Cards</div>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold mb-6">Support</h4>
+                <div class="space-y-3 text-sm opacity-75">
+                    <div onclick="openChat()" class="cursor-pointer flex items-center gap-2 hover:text-white">
+                        <i class="fas fa-comments"></i> Live Chat
+                    </div>
+                    <div>Security Center</div>
+                    <div>Contact Us</div>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold mb-6">Company</h4>
+                <div class="space-y-3 text-sm opacity-75">
+                    <div>About Us</div>
+                    <div>Careers</div>
+                    <div>Investor Relations</div>
+                </div>
+            </div>
         </div>
-        <div onclick="showProduct('mortgage')" class="bg-white p-8 hover:bg-gray-50 cursor-pointer">
-            <span class="block text-5xl mb-4">🏠</span>
-            <span class="font-semibold text-xl">Mortgages</span>
+        
+        <div class="text-center text-xs opacity-60 mt-20 border-t border-white/10 pt-8">
+            Educational Replica for Final Year Project • July 2026<br>
+            Not affiliated with Wells Fargo. Built with ❤️ for academic demonstration.
         </div>
-        <div onclick="showProduct('invest')" class="bg-white p-8 hover:bg-gray-50 cursor-pointer">
-            <span class="block text-5xl mb-4">📈</span>
-            <span class="font-semibold text-xl">Investing</span>
+    </footer>
+
+    <!-- Live Chat -->
+    <div id="chatWindow" class="hidden fixed bottom-8 right-8 w-96 bg-white rounded-3xl shadow-2xl overflow-hidden z-[200]">
+        <div class="bg-[#002d62] text-white p-5 flex items-center gap-3">
+            <div class="text-3xl">🤖</div>
+            <div>
+                <div class="font-semibold">Fargo Assistant</div>
+                <div class="text-xs">AI Banking Helper • Online</div>
+            </div>
+            <button onclick="closeChat()" class="ml-auto text-3xl">×</button>
+        </div>
+        <div id="chatBody" class="h-96 p-6 overflow-auto bg-zinc-50"></div>
+        <div class="p-4 border-t">
+            <input id="chatInput" type="text" placeholder="Type your message..." 
+                   class="w-full border rounded-3xl px-6 py-4 focus:border-[#d71e28]" 
+                   onkeypress="if(event.key==='Enter') sendChat()">
         </div>
     </div>
 
     <script>
-        let currentSlide = 1;
-        const totalSlides = 3;
-
-        function showCurrent() {
-            for (let i = 1; i <= totalSlides; i++) {
-                const slide = document.getElementById(`slide-${i}`);
-                if (slide) {
-                    slide.classList.toggle('active', i === currentSlide);
-                }
-            }
+        // Carousel
+        let slide = 1;
+        function goToSlide(n) {
+            document.querySelectorAll('.hero-slide').forEach((el, i) => {
+                el.classList.toggle('active', i+1 === n);
+            });
+            slide = n;
         }
-
-        function nextSlide() {
-            currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
-            showCurrent();
-        }
-
-        function prevSlide() {
-            currentSlide = currentSlide === 1 ? totalSlides : currentSlide - 1;
-            showCurrent();
-        }
-
-        // Auto rotate
         setInterval(() => {
-            nextSlide();
-        }, 5500);
-
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('open');
-        }
+            slide = slide === 3 ? 1 : slide + 1;
+            goToSlide(slide);
+        }, 6500);
 
         function fakeSignOn() {
-            alert("🔐 Signed in to Wells Fargo Online (Demo Mode)");
+            alert("✅ Welcome to Wells Fargo Online Banking (Project Demo)");
         }
-
+        
         function showProduct(cat) {
-            const info = {
-                checking: "Clear Access Banking – Earn $125 Bonus",
-                credit: "Active Cash® – Unlimited 2% Cash Back",
-                mortgage: "Mortgage rates as low as 6.49%",
-                invest: "Start investing with confidence"
-            };
-            alert(info[cat] || "Explore our solutions (Educational Demo)");
+            alert(`Exploring ${cat} solutions... (Full interactive flow in production version)`);
         }
-
-        // Initialize
-        window.onload = () => {
-            showCurrent();
-            console.log("%c✅ Premium Sliding Hero + Responsive Design Loaded", "color:#d71e28;font-weight:bold");
-        };
+        
+        function toggleMobileMenu() {
+            alert("Mobile menu would appear here in full implementation.");
+        }
+        
+        function openChat() {
+            const chat = document.getElementById('chatWindow');
+            chat.classList.remove('hidden');
+            const body = document.getElementById('chatBody');
+            if (body.children.length === 0) {
+                body.innerHTML = `<div class="chat-bubble bg-white p-4 rounded-3xl">Hello! How can I assist with your banking today?</div>`;
+            }
+        }
+        
+        function closeChat() {
+            document.getElementById('chatWindow').classList.add('hidden');
+        }
+        
+        function sendChat() {
+            const input = document.getElementById('chatInput');
+            if (!input.value.trim()) return;
+            
+            const body = document.getElementById('chatBody');
+            body.innerHTML += `<div class="chat-bubble ml-auto bg-[#d71e28] text-white p-4 rounded-3xl max-w-[80%]">${input.value}</div>`;
+            body.scrollTop = body.scrollHeight;
+            
+            const q = input.value;
+            input.value = '';
+            
+            setTimeout(() => {
+                body.innerHTML += `<div class="chat-bubble bg-white p-4 rounded-3xl">Thank you! For this demo, a real representative would respond here.</div>`;
+                body.scrollTop = body.scrollHeight;
+            }, 1200);
+        }
+        
+        // Init
+        window.onload = () => goToSlide(1);
+        console.log("%c🚀 Premium Wells Fargo Replica Ready for Project Defense", "color:#d71e28; font-size:15px; font-weight:bold");
     </script>
 </body>
 </html>
