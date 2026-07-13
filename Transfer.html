@@ -1,1 +1,482 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Bank • Transfer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: 59 130 246;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .logo-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+        }
+
+        .input-focus {
+            transition: all 0.2s ease;
+        }
+        
+        .input-focus:focus {
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+            border-color: rgb(59 130 246);
+        }
+
+        .balance {
+            font-feature-settings: "tnum";
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200 min-h-screen">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="w-72 bg-zinc-900 border-r border-zinc-800 flex flex-col">
+            <div class="p-6 border-b border-zinc-800">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl logo-font">A</div>
+                    <div>
+                        <span class="logo-font text-3xl font-semibold tracking-tighter">Aether</span>
+                    </div>
+                </div>
+                <p class="text-xs text-zinc-500 mt-1 pl-12">Banking</p>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto py-8 px-4">
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center gap-x-3 px-4 py-3 text-sm font-medium rounded-3xl bg-zinc-800 text-white">
+                        <i class="fa-solid fa-house w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" onclick="switchTab(0)" class="flex items-center gap-x-3 px-4 py-3 text-sm font-medium rounded-3xl hover:bg-zinc-800/70 text-white active">
+                        <i class="fa-solid fa-arrow-right-arrow-left w-5"></i>
+                        <span>Transfer</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-x-3 px-4 py-3 text-sm font-medium rounded-3xl hover:bg-zinc-800/70 text-zinc-400">
+                        <i class="fa-solid fa-credit-card w-5"></i>
+                        <span>Payments</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-x-3 px-4 py-3 text-sm font-medium rounded-3xl hover:bg-zinc-800/70 text-zinc-400">
+                        <i class="fa-solid fa-chart-pie w-5"></i>
+                        <span>Investments</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-x-3 px-4 py-3 text-sm font-medium rounded-3xl hover:bg-zinc-800/70 text-zinc-400">
+                        <i class="fa-solid fa-piggy-bank w-5"></i>
+                        <span>Savings</span>
+                    </a>
+                </nav>
+
+                <div class="mt-12 px-4">
+                    <p class="text-xs uppercase tracking-widest text-zinc-500 mb-4">Quick Accounts</p>
+                    <div onclick="selectAccount(this)" class="account-item flex items-center gap-x-3 p-3 rounded-3xl hover:bg-zinc-800 cursor-pointer bg-zinc-800">
+                        <div class="w-10 h-10 bg-emerald-500 rounded-2xl flex items-center justify-center text-white font-semibold">C</div>
+                        <div class="flex-1">
+                            <p class="font-medium">Checking •••• 4242</p>
+                            <p class="text-emerald-400 text-sm balance">$12,458.32</p>
+                        </div>
+                    </div>
+                    <div onclick="selectAccount(this)" class="account-item flex items-center gap-x-3 p-3 rounded-3xl hover:bg-zinc-800 cursor-pointer mt-2">
+                        <div class="w-10 h-10 bg-amber-500 rounded-2xl flex items-center justify-center text-white font-semibold">S</div>
+                        <div class="flex-1">
+                            <p class="font-medium">Savings •••• 9191</p>
+                            <p class="text-amber-400 text-sm balance">$48,291.75</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-zinc-800 mt-auto">
+                <div class="flex items-center gap-x-3">
+                    <img src="https://picsum.photos/id/64/128/128" alt="Profile" class="w-9 h-9 rounded-2xl object-cover">
+                    <div class="flex-1">
+                        <p class="font-medium text-sm">Alex Rivera</p>
+                        <p class="text-zinc-500 text-xs">Premium Member</p>
+                    </div>
+                    <button onclick="logout()" class="w-9 h-9 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-2xl">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Bar -->
+            <header class="h-16 border-b border-zinc-800 bg-zinc-900 px-8 flex items-center justify-between">
+                <div class="flex items-center gap-x-8">
+                    <h1 class="text-2xl font-semibold tracking-tight">Send Money</h1>
+                    
+                    <div class="flex items-center bg-zinc-800 rounded-3xl text-sm">
+                        <button onclick="switchTab(0)" id="tab-internal" class="tab-btn px-6 py-2 rounded-3xl font-medium active">Internal</button>
+                        <button onclick="switchTab(1)" id="tab-external" class="tab-btn px-6 py-2 rounded-3xl font-medium">External</button>
+                        <button onclick="switchTab(2)" id="tab-international" class="tab-btn px-6 py-2 rounded-3xl font-medium">International</button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-x-6">
+                    <div class="relative">
+                        <input type="text" id="search-recipient" 
+                               class="bg-zinc-800 border border-zinc-700 focus:border-blue-500 w-72 pl-10 py-3 rounded-3xl text-sm outline-none"
+                               placeholder="Search recipients or accounts...">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-zinc-500"></i>
+                    </div>
+                    
+                    <div class="flex items-center gap-x-2 text-sm">
+                        <div class="text-right">
+                            <p class="text-emerald-400 font-medium">$12,458.32</p>
+                            <p class="text-[10px] text-zinc-500 -mt-1">Available</p>
+                        </div>
+                        <div class="w-8 h-8 bg-emerald-500/10 text-emerald-400 flex items-center justify-center rounded-2xl">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                    </div>
+                    
+                    <button onclick="showNotifications()" 
+                            class="w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-3xl relative">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-auto p-8">
+                <div class="max-w-2xl mx-auto">
+                    <!-- Transfer Form -->
+                    <div class="glass border border-zinc-700 rounded-3xl shadow-2xl p-8 card-hover">
+                        <div class="flex justify-between items-start mb-8">
+                            <div>
+                                <h2 class="text-3xl font-semibold tracking-tight">New Transfer</h2>
+                                <p class="text-zinc-400 mt-1">Instant • Secure • Free for internal transfers</p>
+                            </div>
+                            <div id="transfer-type-badge" 
+                                 class="px-5 py-2 bg-blue-500/10 text-blue-400 text-sm font-medium rounded-3xl">
+                                Internal Transfer
+                            </div>
+                        </div>
+
+                        <!-- From Account -->
+                        <div class="mb-8">
+                            <label class="block text-sm text-zinc-400 mb-3 font-medium">FROM</label>
+                            <div class="flex items-center gap-4 bg-zinc-900 border border-zinc-700 rounded-3xl p-5">
+                                <div class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-white font-bold">C</div>
+                                <div class="flex-1">
+                                    <p class="font-semibold">Checking Account •••• 4242</p>
+                                    <p class="text-emerald-400 balance text-lg font-medium">$12,458.32</p>
+                                </div>
+                                <button onclick="showAccountSelector()" 
+                                        class="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center gap-x-1">
+                                    Change <i class="fa-solid fa-chevron-down text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- To Recipient -->
+                        <div class="mb-8">
+                            <label class="block text-sm text-zinc-400 mb-3 font-medium">TO</label>
+                            
+                            <!-- Saved Recipients -->
+                            <div class="grid grid-cols-4 gap-3 mb-6" id="saved-recipients">
+                                <!-- Populated by JS -->
+                            </div>
+                            
+                            <div class="border border-dashed border-zinc-700 rounded-3xl p-6 text-center cursor-pointer hover:border-blue-500 transition-colors"
+                                 onclick="toggleManualEntry()">
+                                <i class="fa-solid fa-plus text-3xl text-zinc-500 mb-3 block"></i>
+                                <p class="font-medium">Add new recipient</p>
+                                <p class="text-xs text-zinc-500">or search existing</p>
+                            </div>
+                        </div>
+
+                        <!-- Manual Entry Form -->
+                        <div id="manual-entry" class="hidden space-y-6">
+                            <div>
+                                <label class="text-xs uppercase tracking-widest text-zinc-500 block mb-2">Recipient Name</label>
+                                <input type="text" id="recipient-name" 
+                                       class="input-focus w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-6 py-4 outline-none text-lg"
+                                       placeholder="Jamie Park">
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <label class="text-xs uppercase tracking-widest text-zinc-500 block mb-2">Account / IBAN</label>
+                                    <input type="text" id="account-number" 
+                                           class="input-focus w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-6 py-4 outline-none"
+                                           placeholder="•••• 8291">
+                                </div>
+                                <div>
+                                    <label class="text-xs uppercase tracking-widest text-zinc-500 block mb-2">Bank / Routing</label>
+                                    <input type="text" id="routing" 
+                                           class="input-focus w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-6 py-4 outline-none"
+                                           placeholder="021000021">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Amount -->
+                        <div class="mb-8">
+                            <label class="block text-sm text-zinc-400 mb-3 font-medium">AMOUNT</label>
+                            <div class="relative">
+                                <span class="absolute left-8 top-6 text-4xl text-zinc-400 font-light">$</span>
+                                <input type="text" id="amount" 
+                                       onkeyup="formatAmount(this)"
+                                       class="input-focus w-full bg-zinc-900 border border-zinc-700 rounded-3xl pl-16 pr-8 py-8 text-6xl font-light tracking-tighter outline-none"
+                                       placeholder="0.00">
+                            </div>
+                            <div class="flex justify-between text-xs mt-3 text-zinc-500">
+                                <div>Fee: <span id="fee-display" class="text-emerald-400">FREE</span></div>
+                                <div id="usd-equivalent" class="font-mono"></div>
+                            </div>
+                        </div>
+
+                        <!-- Note -->
+                        <div class="mb-8">
+                            <label class="block text-sm text-zinc-400 mb-3 font-medium">NOTE (OPTIONAL)</label>
+                            <textarea id="note" rows="2"
+                                class="input-focus w-full bg-zinc-900 border border-zinc-700 rounded-3xl px-6 py-4 outline-none resize-none"
+                                placeholder="Rent for July or Invoice #39281..."></textarea>
+                        </div>
+
+                        <!-- Action -->
+                        <div class="flex items-center justify-between pt-6 border-t border-zinc-700">
+                            <button onclick="simulateTransfer()" 
+                                    class="flex-1 bg-white text-zinc-900 hover:bg-amber-300 font-semibold py-6 rounded-3xl text-lg flex items-center justify-center gap-x-3 transition-all active:scale-[0.97]">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Send Securely Now</span>
+                            </button>
+                        </div>
+                        
+                        <p class="text-center text-[10px] text-zinc-500 mt-6 flex items-center justify-center gap-x-2">
+                            <i class="fa-solid fa-lock"></i>
+                            256-BIT ENCRYPTED • FDIC INSURED
+                        </p>
+                    </div>
+
+                    <!-- Recent Transfers -->
+                    <div class="mt-12">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="font-semibold">Recent Transfers</h3>
+                            <a href="#" class="text-blue-400 text-sm flex items-center gap-x-1 hover:underline">
+                                View all <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="space-y-3" id="recent-transfers">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+        <div class="bg-zinc-900 rounded-3xl max-w-md w-full p-10 text-center">
+            <div class="w-24 h-24 mx-auto bg-emerald-500/10 rounded-full flex items-center justify-center mb-8">
+                <i class="fa-solid fa-check text-6xl text-emerald-400"></i>
+            </div>
+            <h3 class="text-3xl font-semibold mb-2">Transfer Successful!</h3>
+            <p class="text-zinc-400" id="success-details"></p>
+            
+            <div class="my-10 border border-zinc-700 rounded-3xl p-6 text-left text-sm">
+                <div class="flex justify-between py-3 border-b border-zinc-700">
+                    <span class="text-zinc-400">To</span>
+                    <span id="modal-recipient" class="font-medium"></span>
+                </div>
+                <div class="flex justify-between py-3 border-b border-zinc-700">
+                    <span class="text-zinc-400">Amount</span>
+                    <span id="modal-amount" class="font-semibold text-emerald-400"></span>
+                </div>
+                <div class="flex justify-between py-3">
+                    <span class="text-zinc-400">Reference</span>
+                    <span id="modal-ref" class="font-mono text-xs"></span>
+                </div>
+            </div>
+            
+            <button onclick="closeModal()" 
+                    class="w-full py-6 bg-white text-zinc-900 rounded-3xl font-semibold">
+                Done
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script already loaded
+        
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'bg-zinc-800', 'text-white'));
+            
+            if (tab === 0) {
+                document.getElementById('tab-internal').classList.add('active', 'bg-zinc-800', 'text-white');
+                document.getElementById('transfer-type-badge').textContent = 'Internal Transfer';
+                document.getElementById('transfer-type-badge').className = 'px-5 py-2 bg-blue-500/10 text-blue-400 text-sm font-medium rounded-3xl';
+            } else if (tab === 1) {
+                document.getElementById('tab-external').classList.add('active', 'bg-zinc-800', 'text-white');
+                document.getElementById('transfer-type-badge').textContent = 'External ACH';
+                document.getElementById('transfer-type-badge').className = 'px-5 py-2 bg-amber-500/10 text-amber-400 text-sm font-medium rounded-3xl';
+            } else {
+                document.getElementById('tab-international').classList.add('active', 'bg-zinc-800', 'text-white');
+                document.getElementById('transfer-type-badge').textContent = 'International Wire';
+                document.getElementById('transfer-type-badge').className = 'px-5 py-2 bg-purple-500/10 text-purple-400 text-sm font-medium rounded-3xl';
+            }
+        }
+        
+        function formatAmount(input) {
+            let val = input.value.replace(/[^0-9.]/g, '');
+            if (val) {
+                input.value = parseFloat(val).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            }
+            
+            const usd = document.getElementById('usd-equivalent');
+            if (val) usd.textContent = '≈ $' + parseFloat(val).toFixed(2);
+        }
+        
+        function selectAccount(el) {
+            document.querySelectorAll('.account-item').forEach(item => {
+                item.classList.remove('bg-zinc-800');
+            });
+            el.classList.add('bg-zinc-800');
+        }
+        
+        function toggleManualEntry() {
+            const manual = document.getElementById('manual-entry');
+            manual.classList.toggle('hidden');
+        }
+        
+        function simulateTransfer() {
+            const amount = document.getElementById('amount').value || "250.00";
+            const recipient = document.getElementById('recipient-name').value || "Jamie Park";
+            
+            document.getElementById('modal-recipient').textContent = recipient;
+            document.getElementById('modal-amount').textContent = '$' + amount;
+            document.getElementById('modal-ref').textContent = 'TXN-' + Math.floor(Math.random()*900000 + 100000);
+            document.getElementById('success-details').textContent = `$${amount} sent successfully`;
+            
+            document.getElementById('success-modal').classList.remove('hidden');
+            document.getElementById('success-modal').classList.add('flex');
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            
+            // Reset form
+            document.getElementById('amount').value = '';
+            document.getElementById('note').value = '';
+        }
+        
+        function showAccountSelector() {
+            alert("Account selector would open here in a real app.\n\nYou can switch between Checking and Savings.");
+        }
+        
+        function showNotifications() {
+            alert("🛎️  No new notifications.\n\nAll transfers are secure.");
+        }
+        
+        function logout() {
+            if (confirm("Sign out of Aether Bank?")) {
+                window.location.reload();
+            }
+        }
+        
+        // Populate saved recipients
+        function populateSavedRecipients() {
+            const container = document.getElementById('saved-recipients');
+            const recipients = [
+                {name: "Jamie", initial: "J", color: "rose"},
+                {name: "Rent", initial: "R", color: "emerald"},
+                {name: "Mom", initial: "M", color: "amber"},
+                {name: "Groceries", initial: "G", color: "violet"}
+            ];
+            
+            container.innerHTML = '';
+            
+            recipients.forEach(rec => {
+                const div = document.createElement('div');
+                div.className = `flex flex-col items-center cursor-pointer hover:scale-105 transition-transform`;
+                div.innerHTML = `
+                    <div class="w-14 h-14 bg-${rec.color}-500 rounded-3xl flex items-center justify-center text-white font-semibold text-2xl mb-2 shadow-inner">${rec.initial}</div>
+                    <p class="text-xs font-medium">${rec.name}</p>
+                `;
+                div.onclick = () => {
+                    document.getElementById('recipient-name').value = rec.name;
+                    document.getElementById('manual-entry').classList.remove('hidden');
+                    document.getElementById('amount').focus();
+                };
+                container.appendChild(div);
+            });
+        }
+        
+        // Populate recent transfers
+        function populateRecent() {
+            const container = document.getElementById('recent-transfers');
+            const recents = [
+                {to: "Jamie Park", amount: "85.00", date: "Today", type: "Rent"},
+                {to: "Whole Foods", amount: "124.50", date: "Yesterday", type: "Debit"},
+                {to: "Sarah Chen", amount: "500.00", date: "Jul 10", type: "Personal"}
+            ];
+            
+            container.innerHTML = '';
+            
+            recents.forEach(t => {
+                const div = document.createElement('div');
+                div.className = "flex items-center justify-between bg-zinc-900 border border-zinc-700 rounded-3xl px-6 py-5";
+                div.innerHTML = `
+                    <div class="flex items-center gap-x-4">
+                        <div class="text-emerald-400">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">${t.to}</p>
+                            <p class="text-xs text-zinc-500">${t.type} • ${t.date}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-semibold text-red-400">-${t.amount}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // Initialize everything
+        window.onload = function() {
+            populateSavedRecipients();
+            populateRecent();
+            
+            // Keyboard support
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "Enter" && document.getElementById('amount') === document.activeElement) {
+                    simulateTransfer();
+                }
+            });
+            
+            // Demo balance animation
+            console.log('%c✅ Aether Bank Transfer Page Ready\nModern, secure, and beautiful banking UI.', 'color:#3b82f6; font-family:monospace');
+        }
+    </script>
+</body>
+</html>
