@@ -1,1 +1,280 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wells Fargo • Enroll in Online Banking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700;900&amp;display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .logo-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(to bottom right, #0A1F3D, #1E3A5F);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(212,28,44,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,28,44,0.1) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.15;
+        }
+
+        .form-card {
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(30px);
+        }
+
+        .field-input {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .field-input:focus {
+            border-color: #D41C2C;
+            box-shadow: 0 0 0 4px rgba(212, 28, 44, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .progress-step {
+            transition: all 0.4s ease;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950">
+    <div class="hero-bg min-h-screen flex items-center py-12">
+        <div class="max-w-6xl mx-auto px-6 w-full">
+            
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-12">
+                <div class="flex items-center gap-x-4">
+                    <div class="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center text-white text-3xl font-black shadow-lg">WF</div>
+                    <div class="logo-font text-5xl font-bold text-white tracking-tighter">Wells Fargo</div>
+                </div>
+                <div class="text-white/70 text-sm flex items-center gap-8">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-shield-alt"></i>
+                        <span class="font-medium">Bank-Level Security</span>
+                    </div>
+                    <button onclick="window.history.back()" 
+                            class="hover:text-white flex items-center gap-2">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Sidebar Info -->
+                <div class="lg:col-span-5 text-white space-y-8">
+                    <div class="inline-block bg-white/10 backdrop-blur-md px-6 py-3 rounded-3xl text-sm font-medium border border-white/20">
+                        New Account Enrollment
+                    </div>
+                    
+                    <h1 class="text-6xl font-bold leading-tight tracking-tighter">
+                        Let's get you started
+                    </h1>
+                    <p class="text-xl text-white/80">
+                        Join millions of customers who trust Wells Fargo with their financial journey.
+                    </p>
+                    
+                    <div class="space-y-6 pt-6">
+                        <div class="flex gap-5">
+                            <div class="text-4xl">⚡</div>
+                            <div>
+                                <div class="font-semibold text-lg">Instant Access</div>
+                                <div class="text-white/70">Virtual card ready in minutes</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-5">
+                            <div class="text-4xl">🌍</div>
+                            <div>
+                                <div class="font-semibold text-lg">Global Banking</div>
+                                <div class="text-white/70">Send money worldwide with ease</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-5">
+                            <div class="text-4xl">🛡️</div>
+                            <div>
+                                <div class="font-semibold text-lg">Protected 24/7</div>
+                                <div class="text-white/70">Advanced fraud monitoring</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Form -->
+                <div class="lg:col-span-7">
+                    <div class="form-card rounded-3xl p-10 md:p-16 shadow-2xl">
+                        
+                        <!-- Progress -->
+                        <div id="progressContainer" class="flex gap-4 mb-12">
+                            <div onclick="goToStep(1)" id="step1dot" class="progress-step cursor-pointer w-9 h-9 rounded-2xl bg-red-600 text-white flex items-center justify-center font-semibold">1</div>
+                            <div onclick="goToStep(2)" id="step2dot" class="progress-step cursor-pointer w-9 h-9 rounded-2xl bg-zinc-200 text-zinc-400 flex items-center justify-center font-semibold">2</div>
+                            <div onclick="goToStep(3)" id="step3dot" class="progress-step cursor-pointer w-9 h-9 rounded-2xl bg-zinc-200 text-zinc-400 flex items-center justify-center font-semibold">3</div>
+                        </div>
+
+                        <!-- Step 1: Personal -->
+                        <div id="step1" class="form-step">
+                            <h2 class="text-3xl font-semibold text-zinc-900 mb-8">Personal Information</h2>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <label class="text-sm font-medium text-zinc-500 block mb-2">First Name</label>
+                                    <input type="text" id="fname" class="field-input w-full px-6 py-5 rounded-2xl border border-zinc-300 focus:outline-none text-lg" placeholder="Emma">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-zinc-500 block mb-2">Last Name</label>
+                                    <input type="text" id="lname" class="field-input w-full px-6 py-5 rounded-2xl border border-zinc-300 focus:outline-none text-lg" placeholder="Thompson">
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <label class="text-sm font-medium text-zinc-500 block mb-2">Date of Birth</label>
+                                <input type="date" class="field-input w-full px-6 py-5 rounded-2xl border border-zinc-300 focus:outline-none text-lg">
+                            </div>
+                            <div class="mt-6">
+                                <label class="text-sm font-medium text-zinc-500 block mb-2">Social Security Number</label>
+                                <input type="text" maxlength="11" placeholder="XXX-XX-XXXX" 
+                                       class="field-input w-full px-6 py-5 rounded-2xl border border-zinc-300 focus:outline-none text-lg font-mono">
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Contact & Account -->
+                        <div id="step2" class="form-step hidden">
+                            <h2 class="text-3xl font-semibold text-zinc-900 mb-8">Contact &amp; Account Details</h2>
+                            <div>
+                                <label class="text-sm font-medium text-zinc-500 block mb-2">Email Address</label>
+                                <input type="email" class="field-input w-full px-6 py-5 rounded-2xl border border-zinc-300 focus:outline-none text-lg" placeholder="you@example.com">
+                            </div>
+                            <div class="mt-6">
+                                <label class="text-sm font-medium text-zinc-500 block mb-2">Mobile Phone</label>
+                                <input type="tel" class="field-input w-full px-6 py-5 rounded-2xl border border-zinc-300 focus:outline-none text-lg" placeholder="(555) 555-5555">
+                            </div>
+                            <div class="mt-6">
+                                <label class="text-sm font-medium text-zinc-500 block mb-2">Preferred Online ID</label>
+                                <input type="text" class="field-input w-full px-6 py-5 rounded-2xl border border-zinc-300 focus:outline-none text-lg" placeholder="emma.t92">
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Security -->
+                        <div id="step3" class="form-step hidden">
+                            <h2 class="text-3xl font-semibold text-zinc-900 mb-8">Secure Your Account</h2>
+                            <div class="space-y-8">
+                                <div>
+                                    <label class="text-sm font-medium text-zinc-500 block mb-2">Create Password (min. 12 characters)</label>
+                                    <input type="password" class="field-input w-full px-6 py-5 rounded-2xl border border-zinc-300 focus:outline-none text-lg">
+                                </div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="text-sm font-medium text-zinc-500 block mb-2">Security Question</label>
+                                        <select class="field-input w-full px-6 py-5 rounded-2xl border border-zinc-300 focus:outline-none text-lg">
+                                            <option>What is your mother's maiden name?</option>
+                                            <option>What was the name of your first school?</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-zinc-500 block mb-2">Answer</label>
+                                        <input type="text" class="field-input w-full px-6 py-5 rounded-2xl border border-zinc-300 focus:outline-none text-lg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="flex justify-between items-center mt-16">
+                            <button onclick="prevStep()" id="prevBtn"
+                                    class="hidden px-8 py-4 text-zinc-500 hover:text-zinc-700 font-medium">Previous</button>
+                            
+                            <button onclick="nextStep()" id="nextBtn"
+                                    class="ml-auto bg-red-600 hover:bg-red-700 text-white px-12 py-5 rounded-2xl font-semibold text-lg flex items-center gap-3">
+                                Next Step 
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        function updateSteps() {
+            for (let i = 1; i <= 3; i++) {
+                const dot = document.getElementById(`step${i}dot`);
+                if (i < currentStep) {
+                    dot.classList.add('bg-emerald-500', 'text-white');
+                    dot.classList.remove('bg-zinc-200', 'text-zinc-400');
+                } else if (i === currentStep) {
+                    dot.classList.add('bg-red-600', 'text-white');
+                    dot.classList.remove('bg-zinc-200', 'text-zinc-400');
+                } else {
+                    dot.classList.remove('bg-red-600', 'bg-emerald-500', 'text-white');
+                    dot.classList.add('bg-zinc-200', 'text-zinc-400');
+                }
+            }
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.form-step').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`step${step}`).classList.remove('hidden');
+            
+            document.getElementById('prevBtn').classList.toggle('hidden', step === 1);
+            
+            const nextBtn = document.getElementById('nextBtn');
+            if (step === 3) {
+                nextBtn.innerHTML = `Complete Enrollment <i class="fas fa-check"></i>`;
+            } else {
+                nextBtn.innerHTML = `Next Step <i class="fas fa-arrow-right"></i>`;
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < 3) {
+                currentStep++;
+                showStep(currentStep);
+                updateSteps();
+            } else {
+                // Submit
+                document.getElementById('nextBtn').innerHTML = 'Processing...';
+                setTimeout(() => {
+                    alert("✅ Account enrollment successful!\n\nWelcome to Wells Fargo Online Banking.");
+                    window.location.href = "#"; // Could redirect to dashboard
+                }, 1200);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                updateSteps();
+            }
+        }
+
+        function goToStep(step) {
+            currentStep = step;
+            showStep(step);
+            updateSteps();
+        }
+
+        // Initialize
+        showStep(1);
+        updateSteps();
+    </script>
+</body>
+</html>
