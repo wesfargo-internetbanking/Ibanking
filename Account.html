@@ -3,99 +3,77 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Premier Banking · Final Project</title>
+    <title>Wells Fargo · UI Concept (Final Project)</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <style>
-        /* --- RESET & ROOT --- */
+        /* --- RESET & ROOT (Wells Fargo Inspired Colors) --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         :root {
-            --bg-primary: #0b0b0b;
-            --bg-card: #151515;
-            --red: #cd1309;
-            --gold: #d4af37;
-            --gold-dim: rgba(212, 175, 55, 0.15);
-            --text-white: #ffffff;
-            --text-muted: #8a8a8a;
-            --border-glow: rgba(205, 19, 9, 0.3);
+            --wf-red: #cd1309;
+            --wf-red-dark: #a00f07;
+            --wf-gold: #d4af37;
+            --wf-gold-dim: rgba(212, 175, 55, 0.15);
+            --wf-bg: #0d0d0d;
+            --wf-card-bg: #151515;
+            --wf-text: #ffffff;
+            --wf-muted: #8a8a8a;
         }
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
+            background: var(--wf-bg);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 24px;
+            padding: 20px;
             margin: 0;
         }
 
         /* --- ANIMATIONS --- */
         @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-        @keyframes glowPulse {
-            0%,
-            100% {
-                box-shadow: 0 0 20px rgba(212, 175, 55, 0.02);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(212, 175, 55, 0.08);
-            }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.02); }
+            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.07); }
         }
-        .animate-in {
-            animation: fadeUp 0.6s ease forwards;
-            opacity: 0;
-        }
-        .delay-1 {
-            animation-delay: 0.1s;
-        }
-        .delay-2 {
-            animation-delay: 0.2s;
-        }
-        .delay-3 {
-            animation-delay: 0.3s;
-        }
-        .delay-4 {
-            animation-delay: 0.4s;
-        }
+        .animate-in { animation: fadeUp 0.5s ease forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.05s; }
+        .delay-2 { animation-delay: 0.1s; }
+        .delay-3 { animation-delay: 0.2s; }
+        .delay-4 { animation-delay: 0.3s; }
 
         /* --- DASHBOARD WRAPPER --- */
         .dashboard {
-            max-width: 1320px;
+            max-width: 1360px;
             width: 100%;
-            background: linear-gradient(145deg, #121212, #0a0a0a);
-            border-radius: 48px;
-            padding: 32px 36px 40px;
-            border: 1px solid rgba(205, 19, 9, 0.15);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+            background: linear-gradient(145deg, #111, #0a0a0a);
+            border-radius: 40px;
+            padding: 32px 38px 40px;
+            border: 1px solid rgba(205, 19, 9, 0.2);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.95);
             position: relative;
             overflow: hidden;
         }
-        /* Academic Watermark - protects your work */
+        /* Educational Watermark - Protects your project */
         .dashboard::after {
-            content: 'FINAL PROJECT · FRONT-END DEV';
+            content: 'EDUCATIONAL DEMO · FRONT-END PROJECT';
             position: absolute;
             bottom: 30px;
-            right: -80px;
-            transform: rotate(-20deg);
-            font-size: 60px;
+            right: -60px;
+            transform: rotate(-18deg);
+            font-size: 58px;
             font-weight: 900;
             color: rgba(205, 19, 9, 0.04);
-            letter-spacing: 10px;
+            letter-spacing: 8px;
             white-space: nowrap;
             pointer-events: none;
             z-index: 0;
@@ -112,67 +90,67 @@
             flex-wrap: wrap;
             gap: 16px;
         }
-        .logo {
+        .logo-wrapper {
             display: flex;
             align-items: center;
             gap: 14px;
         }
-        .logo .icon {
-            width: 46px;
-            height: 46px;
-            background: linear-gradient(135deg, var(--red), #8b0a03);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 24px;
-            box-shadow: 0 8px 24px rgba(205, 19, 9, 0.3);
+        .logo-svg {
+            width: 48px;
+            height: 48px;
+            filter: drop-shadow(0 4px 12px rgba(205, 19, 9, 0.3));
         }
-        .logo h1 {
-            font-size: 24px;
+        .logo-text {
+            font-size: 26px;
             font-weight: 800;
             color: #fff;
             letter-spacing: -0.5px;
         }
-        .logo h1 span {
-            color: var(--gold);
+        .logo-text span {
+            color: var(--wf-gold);
         }
+        .logo-text small {
+            display: block;
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--wf-muted);
+            letter-spacing: 2px;
+            margin-top: -2px;
+        }
+
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 22px;
         }
         .nav-right i {
-            color: var(--text-muted);
+            color: var(--wf-muted);
             font-size: 20px;
             transition: 0.2s;
             cursor: pointer;
         }
-        .nav-right i:hover {
-            color: var(--gold);
-        }
-        .clock {
-            color: var(--text-muted);
-            font-size: 14px;
+        .nav-right i:hover { color: var(--wf-gold); }
+        .clock-display {
+            color: var(--wf-muted);
+            font-size: 13px;
             font-weight: 500;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 8px 16px;
+            background: rgba(255,255,255,0.04);
+            padding: 8px 18px;
             border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255,255,255,0.04);
             font-variant-numeric: tabular-nums;
         }
         .avatar {
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--red), #8b0a03);
+            background: linear-gradient(135deg, var(--wf-red), var(--wf-red-dark));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             color: #fff;
-            border: 2px solid var(--gold);
+            border: 2px solid var(--wf-gold);
             cursor: pointer;
         }
 
@@ -181,7 +159,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 32px;
+            margin-bottom: 30px;
             position: relative;
             z-index: 2;
             flex-wrap: wrap;
@@ -192,19 +170,15 @@
             font-size: 28px;
             font-weight: 600;
         }
-        .greeting-text h2 i {
-            color: var(--gold);
-        }
+        .greeting-text h2 i { color: var(--wf-gold); }
         .greeting-text p {
-            color: var(--text-muted);
+            color: var(--wf-muted);
             font-size: 15px;
             margin-top: 4px;
         }
-        .balance-area {
-            text-align: right;
-        }
+        .balance-area { text-align: right; }
         .balance-area .label {
-            color: var(--text-muted);
+            color: var(--wf-muted);
             font-size: 13px;
             font-weight: 500;
             text-transform: uppercase;
@@ -213,12 +187,12 @@
         .balance-area .amount {
             font-size: 46px;
             font-weight: 800;
-            color: var(--gold);
+            color: var(--wf-gold);
             letter-spacing: -1px;
             transition: 0.3s;
         }
         .balance-area .amount.hidden-balance {
-            filter: blur(12px);
+            filter: blur(14px);
             user-select: none;
         }
         .balance-area .amount small {
@@ -227,10 +201,10 @@
             color: #fff;
         }
         .toggle-balance {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-muted);
-            padding: 6px 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--wf-muted);
+            padding: 5px 16px;
             border-radius: 30px;
             font-size: 12px;
             cursor: pointer;
@@ -238,59 +212,49 @@
             margin-top: 6px;
         }
         .toggle-balance:hover {
-            background: var(--gold-dim);
-            color: var(--gold);
-            border-color: var(--gold);
+            background: var(--wf-gold-dim);
+            color: var(--wf-gold);
+            border-color: var(--wf-gold);
         }
 
         /* --- QUICK STATS --- */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
+            gap: 16px;
             margin-bottom: 32px;
             position: relative;
             z-index: 2;
         }
         .stat-item {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 18px 22px;
+            background: rgba(255,255,255,0.02);
+            padding: 16px 20px;
             border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255,255,255,0.04);
             transition: 0.3s;
-            cursor: default;
         }
         .stat-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--gold-dim);
+            background: rgba(255,255,255,0.05);
+            border-color: var(--wf-gold-dim);
         }
         .stat-item .s-label {
-            color: var(--text-muted);
-            font-size: 12px;
+            color: var(--wf-muted);
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .stat-item .s-value {
             color: #fff;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             margin-top: 4px;
         }
-        .stat-item .s-value.gold {
-            color: var(--gold);
-        }
-        .stat-item .s-value i {
-            font-size: 14px;
-            margin-right: 6px;
-        }
-        .stat-item .s-value .fa-arrow-up {
-            color: #4caf50;
-        }
-        .stat-item .s-value .fa-arrow-down {
-            color: var(--red);
-        }
+        .stat-item .s-value.gold { color: var(--wf-gold); }
+        .stat-item .s-value i { font-size: 14px; margin-right: 6px; }
+        .stat-item .s-value .fa-arrow-up { color: #4caf50; }
+        .stat-item .s-value .fa-arrow-down { color: var(--wf-red); }
 
-        /* --- MAIN 2-COL LAYOUT --- */
+        /* --- MAIN GRID --- */
         .main-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
@@ -312,13 +276,13 @@
             font-weight: 600;
         }
         .cards-header h3 span {
-            color: var(--text-muted);
+            color: var(--wf-muted);
             font-weight: 400;
             font-size: 13px;
             margin-left: 8px;
         }
         .cards-header a {
-            color: var(--gold);
+            color: var(--wf-gold);
             font-size: 13px;
             text-decoration: none;
             font-weight: 500;
@@ -330,62 +294,63 @@
             gap: 20px;
         }
 
-        /* --- 3D ATM CARD --- */
+        /* --- 3D ATM CARD (Wells Fargo Style) --- */
         .card-3d {
-            perspective: 1000px;
+            perspective: 1200px;
             cursor: pointer;
         }
         .card-3d-inner {
             position: relative;
             width: 100%;
-            min-height: 190px;
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            min-height: 200px;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             transform-style: preserve-3d;
             border-radius: 24px;
         }
         .card-3d:hover .card-3d-inner {
-            transform: rotateY(6deg) rotateX(4deg);
+            transform: rotateY(5deg) rotateX(3deg) scale(1.01);
         }
         .card-face {
             position: absolute;
             width: 100%;
-            min-height: 190px;
+            min-height: 200px;
             backface-visibility: hidden;
             border-radius: 24px;
-            padding: 22px 26px;
+            padding: 24px 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         .card-face-front {
-            background: linear-gradient(145deg, #1c1c1c, #111);
-            border: 1px solid rgba(205, 19, 9, 0.25);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(145deg, #1c1c1c, #0e0e0e);
+            border: 1px solid rgba(205, 19, 9, 0.3);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
             z-index: 2;
         }
-        .card-face-front.gold-border {
-            border-color: rgba(212, 175, 55, 0.3);
+        .card-face-front.gold-accent {
+            border-color: rgba(212, 175, 55, 0.35);
         }
-        .card-face-front.gold-border::before {
+        .card-face-front.gold-accent::before {
             content: '';
             position: absolute;
-            top: -40%;
-            right: -20%;
-            width: 260px;
-            height: 260px;
+            top: -30%;
+            right: -10%;
+            width: 250px;
+            height: 250px;
             background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
             border-radius: 50%;
         }
         .card-face-front::before {
             content: '';
             position: absolute;
-            top: -40%;
-            right: -20%;
-            width: 260px;
-            height: 260px;
+            top: -30%;
+            right: -10%;
+            width: 250px;
+            height: 250px;
             background: radial-gradient(circle, rgba(205, 19, 9, 0.1) 0%, transparent 70%);
             border-radius: 50%;
         }
+
         .card-top-row {
             display: flex;
             justify-content: space-between;
@@ -393,92 +358,90 @@
             position: relative;
             z-index: 2;
         }
-        .chip {
-            width: 44px;
-            height: 34px;
-            background: linear-gradient(135deg, var(--gold), #b8942b);
+        .card-chip {
+            width: 48px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--wf-gold), #b8942b);
             border-radius: 8px;
-            box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+            box-shadow: inset 0 -2px 6px rgba(0,0,0,0.4);
             position: relative;
         }
-        .chip::after {
+        .card-chip::after {
             content: '';
             position: absolute;
             top: 6px;
-            left: 8px;
+            left: 10px;
             width: 12px;
             height: 8px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255,255,255,0.2);
             border-radius: 2px;
         }
         .card-type-badge {
-            color: var(--text-muted);
+            color: var(--wf-muted);
             font-size: 11px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
-        .card-type-badge i {
-            color: var(--gold);
-            margin-right: 4px;
-        }
+        .card-type-badge i { color: var(--wf-gold); margin-right: 6px; }
+
         .card-number {
             font-family: 'Inter', monospace;
             font-size: 22px;
             font-weight: 600;
             color: #fff;
-            letter-spacing: 3px;
-            margin: 16px 0 10px;
+            letter-spacing: 4px;
+            margin: 18px 0 12px;
             position: relative;
             z-index: 2;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         .card-detail-row {
             display: flex;
-            gap: 30px;
+            gap: 32px;
             position: relative;
             z-index: 2;
         }
         .card-detail-row .detail .lbl {
-            color: var(--text-muted);
+            color: var(--wf-muted);
             font-size: 9px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .card-detail-row .detail .val {
             color: #fff;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
         }
         .card-footer-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 10px;
+            margin-top: 12px;
             position: relative;
             z-index: 2;
         }
         .card-footer-row .holder {
             color: #fff;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px;
             letter-spacing: 0.5px;
         }
         .card-footer-row .network {
-            color: var(--gold);
+            color: var(--wf-gold);
             font-weight: 800;
-            font-size: 12px;
+            font-size: 13px;
             letter-spacing: 2px;
         }
-        /* Demo mark on card */
-        .card-face-front .demo-badge {
+        /* Micro-text on cards */
+        .card-face-front .demo-tag {
             position: absolute;
-            bottom: 12px;
-            right: 16px;
-            font-size: 10px;
+            bottom: 14px;
+            right: 18px;
+            font-size: 9px;
             font-weight: 800;
-            color: rgba(255, 255, 255, 0.06);
-            letter-spacing: 3px;
+            color: rgba(255,255,255,0.04);
+            letter-spacing: 4px;
             z-index: 1;
         }
 
@@ -496,14 +459,20 @@
             font-size: 17px;
             font-weight: 600;
         }
+        .tx-header h3 .count {
+            font-weight: 400;
+            font-size: 13px;
+            color: var(--wf-muted);
+            margin-left: 6px;
+        }
         .tx-filters {
             display: flex;
             gap: 6px;
         }
         .tx-filters button {
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            color: var(--text-muted);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: var(--wf-muted);
             padding: 4px 14px;
             border-radius: 30px;
             font-size: 11px;
@@ -512,44 +481,39 @@
             transition: 0.2s;
         }
         .tx-filters button.active {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-            color: var(--gold);
+            background: var(--wf-gold-dim);
+            border-color: var(--wf-gold);
+            color: var(--wf-gold);
         }
         .tx-filters button:hover {
-            border-color: var(--gold);
+            border-color: var(--wf-gold);
             color: #fff;
         }
 
         .tx-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            max-height: 420px;
+            gap: 8px;
+            max-height: 440px;
             overflow-y: auto;
             padding-right: 4px;
         }
-        .tx-list::-webkit-scrollbar {
-            width: 3px;
-        }
-        .tx-list::-webkit-scrollbar-thumb {
-            background: var(--gold);
-            border-radius: 10px;
-        }
+        .tx-list::-webkit-scrollbar { width: 3px; }
+        .tx-list::-webkit-scrollbar-thumb { background: var(--wf-gold); border-radius: 10px; }
 
         .tx-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255,255,255,0.02);
             border-radius: 14px;
             border-left: 3px solid transparent;
             transition: 0.2s;
         }
         .tx-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-left-color: var(--gold);
+            background: rgba(255,255,255,0.05);
+            border-left-color: var(--wf-gold);
         }
         .tx-left {
             display: flex;
@@ -565,7 +529,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--red);
+            color: var(--wf-red);
             font-size: 15px;
             flex-shrink: 0;
         }
@@ -573,9 +537,7 @@
             background: rgba(76, 175, 80, 0.12);
             color: #4caf50;
         }
-        .tx-info {
-            min-width: 0;
-        }
+        .tx-info { min-width: 0; }
         .tx-info .name {
             color: #fff;
             font-weight: 500;
@@ -585,7 +547,7 @@
             text-overflow: ellipsis;
         }
         .tx-info .date {
-            color: var(--text-muted);
+            color: var(--wf-muted);
             font-size: 11px;
             margin-top: 2px;
         }
@@ -595,20 +557,16 @@
             flex-shrink: 0;
             margin-left: 12px;
         }
-        .tx-amount.positive {
-            color: #4caf50;
-        }
-        .tx-amount.negative {
-            color: var(--red);
-        }
+        .tx-amount.positive { color: #4caf50; }
+        .tx-amount.negative { color: var(--wf-red); }
 
         /* --- CHART (CSS Bars) --- */
         .chart-section {
             margin-top: 28px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255,255,255,0.02);
             border-radius: 20px;
             padding: 20px 24px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255,255,255,0.04);
         }
         .chart-section h4 {
             color: #fff;
@@ -633,72 +591,35 @@
         .bar {
             width: 100%;
             max-width: 36px;
-            background: linear-gradient(180deg, var(--gold), #8a6f1b);
+            background: linear-gradient(180deg, var(--wf-gold), #8a6f1b);
             border-radius: 6px 6px 0 0;
             height: 20px;
-            transition: height 1s ease;
+            transition: height 1s cubic-bezier(0.34, 1.56, 0.64, 1);
             min-height: 4px;
         }
         .bar-label {
-            color: var(--text-muted);
+            color: var(--wf-muted);
             font-size: 10px;
             font-weight: 500;
         }
 
         /* --- RESPONSIVE --- */
-        @media (max-width: 1024px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        @media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 860px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-            .dashboard {
-                padding: 24px 18px;
-            }
-            .greeting-section {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .balance-area {
-                text-align: left;
-                width: 100%;
-            }
-            .balance-area .amount {
-                font-size: 34px;
-            }
-            .tx-list {
-                max-height: 300px;
-            }
+            .main-grid { grid-template-columns: 1fr; }
+            .dashboard { padding: 24px 18px; }
+            .greeting-section { flex-direction: column; align-items: flex-start; }
+            .balance-area { text-align: left; width: 100%; }
+            .balance-area .amount { font-size: 34px; }
+            .tx-list { max-height: 300px; }
         }
         @media (max-width: 500px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            .navbar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .nav-right {
-                justify-content: space-between;
-            }
-            .card-number {
-                font-size: 16px;
-                letter-spacing: 2px;
-            }
-            .card-face {
-                padding: 16px 18px;
-                min-height: 160px;
-            }
-            .card-3d-inner {
-                min-height: 160px;
-            }
-            .tx-item {
-                padding: 10px 12px;
-                flex-wrap: wrap;
-            }
+            .stats-grid { grid-template-columns: 1fr; }
+            .navbar { flex-direction: column; align-items: stretch; }
+            .nav-right { justify-content: space-between; }
+            .card-number { font-size: 16px; letter-spacing: 2px; }
+            .card-face { padding: 16px; min-height: 170px; }
+            .card-3d-inner { min-height: 170px; }
         }
     </style>
 </head>
@@ -708,14 +629,25 @@
 
         <!-- NAVBAR -->
         <nav class="navbar animate-in">
-            <div class="logo">
-                <div class="icon"><i class="fas fa-building-columns"></i></div>
-                <h1>Premier<span>Bank</span></h1>
+            <div class="logo-wrapper">
+                <!-- Custom Stagecoach-Inspired SVG Logo (Wells Fargo Style) -->
+                <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="46" fill="#cd1309" stroke="#d4af37" stroke-width="4" />
+                    <circle cx="50" cy="50" r="36" fill="none" stroke="#d4af37" stroke-width="1.5" opacity="0.3" />
+                    <!-- Wagon Wheel / Stagecoach Spokes -->
+                    <path d="M50 18 L54 38 L70 28 L58 44 L78 50 L58 56 L70 72 L54 62 L50 82 L46 62 L30 72 L42 56 L22 50 L42 44 L30 28 L46 38 Z" fill="#d4af37" opacity="0.9" />
+                    <circle cx="50" cy="50" r="10" fill="#cd1309" stroke="#d4af37" stroke-width="2.5" />
+                    <circle cx="50" cy="50" r="4" fill="#d4af37" />
+                </svg>
+                <div class="logo-text">
+                    Wells Fargo
+                    <small>Est. 1852 · UI Concept</small>
+                </div>
             </div>
             <div class="nav-right">
                 <i class="fas fa-search"></i>
                 <i class="fas fa-bell"></i>
-                <div class="clock" id="liveClock"><i class="far fa-clock"></i> Loading...</div>
+                <div class="clock-display" id="liveClock"><i class="far fa-clock"></i> Loading...</div>
                 <div class="avatar">JD</div>
             </div>
         </nav>
@@ -724,7 +656,7 @@
         <section class="greeting-section animate-in delay-1">
             <div class="greeting-text">
                 <h2>Good morning, James <i class="fas fa-wave-square"></i></h2>
-                <p>Here's your financial overview for today</p>
+                <p>Your premier banking dashboard is ready</p>
             </div>
             <div class="balance-area">
                 <div class="label">Total Balance</div>
@@ -736,19 +668,19 @@
         <!-- STATS -->
         <div class="stats-grid animate-in delay-2">
             <div class="stat-item">
-                <div class="s-label"><i class="fas fa-arrow-up" style="color:#4caf50; margin-right:4px;"></i> Income</div>
-                <div class="s-value gold">$2.8M</div>
+                <div class="s-label"><i class="fas fa-arrow-up" style="color:#4caf50; margin-right:4px;"></i> Income (YTD)</div>
+                <div class="s-value gold">$2.84M</div>
             </div>
             <div class="stat-item">
                 <div class="s-label"><i class="fas fa-arrow-down" style="color:#cd1309; margin-right:4px;"></i> Expenses</div>
-                <div class="s-value" style="color:#fff;">$1.2M</div>
+                <div class="s-value" style="color:#fff;">$1.22M</div>
             </div>
             <div class="stat-item">
                 <div class="s-label"><i class="fas fa-wallet"></i> Invested</div>
                 <div class="s-value gold">$18.4M</div>
             </div>
             <div class="stat-item">
-                <div class="s-label"><i class="fas fa-percent"></i> ROI</div>
+                <div class="s-label"><i class="fas fa-chart-line"></i> Portfolio ROI</div>
                 <div class="s-value" style="color:#4caf50;">+12.4%</div>
             </div>
         </div>
@@ -756,20 +688,20 @@
         <!-- MAIN GRID -->
         <div class="main-grid">
 
-            <!-- LEFT COLUMN -->
+            <!-- LEFT COLUMN: CARDS + CHART -->
             <div class="animate-in delay-3">
                 <div class="cards-header">
                     <h3>Your Cards <span>· 2 active</span></h3>
                     <a href="#"><i class="fas fa-plus-circle"></i> Add</a>
                 </div>
                 <div class="card-stack">
-                    <!-- Card 1 -->
+                    <!-- CARD 1: Visa Signature (Black/Red) -->
                     <div class="card-3d">
                         <div class="card-3d-inner">
                             <div class="card-face card-face-front">
                                 <div class="card-top-row">
-                                    <div class="chip"></div>
-                                    <span class="card-type-badge"><i class="fas fa-credit-card"></i> Platinum</span>
+                                    <div class="card-chip"></div>
+                                    <span class="card-type-badge"><i class="fas fa-credit-card"></i> Visa Signature</span>
                                 </div>
                                 <div class="card-number">•••• 4532 •••• 8891</div>
                                 <div class="card-detail-row">
@@ -778,20 +710,20 @@
                                 </div>
                                 <div class="card-footer-row">
                                     <span class="holder">JAMES D. WELLS</span>
-                                    <span class="network">✦ PREMIER</span>
+                                    <span class="network">✦ SIGNATURE</span>
                                 </div>
-                                <span class="demo-badge">DEMO</span>
+                                <span class="demo-tag">DEMO</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 2 (Gold) -->
+                    <!-- CARD 2: Platinum (Gold Accent) -->
                     <div class="card-3d">
                         <div class="card-3d-inner">
-                            <div class="card-face card-face-front gold-border">
+                            <div class="card-face card-face-front gold-accent">
                                 <div class="card-top-row">
-                                    <div class="chip"></div>
-                                    <span class="card-type-badge"><i class="fas fa-crown" style="color:var(--gold);"></i> Reserve</span>
+                                    <div class="card-chip"></div>
+                                    <span class="card-type-badge"><i class="fas fa-crown" style="color:var(--wf-gold);"></i> Platinum</span>
                                 </div>
                                 <div class="card-number">•••• 6741 •••• 3320</div>
                                 <div class="card-detail-row">
@@ -800,9 +732,9 @@
                                 </div>
                                 <div class="card-footer-row">
                                     <span class="holder">JAMES D. WELLS</span>
-                                    <span class="network">✦ RESERVE</span>
+                                    <span class="network">✦ PLATINUM</span>
                                 </div>
-                                <span class="demo-badge">DEMO</span>
+                                <span class="demo-tag">DEMO</span>
                             </div>
                         </div>
                     </div>
@@ -810,7 +742,7 @@
 
                 <!-- CHART -->
                 <div class="chart-section">
-                    <h4><i class="fas fa-chart-line" style="color:var(--gold); margin-right:8px;"></i>Portfolio Performance (This Week)</h4>
+                    <h4><i class="fas fa-chart-line" style="color:var(--wf-gold); margin-right:8px;"></i>Portfolio Performance (This Week)</h4>
                     <div class="chart-bars" id="chartBars">
                         <div class="bar-wrap"><div class="bar" style="height:70px;"></div><span class="bar-label">Mon</span></div>
                         <div class="bar-wrap"><div class="bar" style="height:45px;"></div><span class="bar-label">Tue</span></div>
@@ -823,14 +755,14 @@
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: TRANSACTIONS -->
+            <!-- RIGHT COLUMN: 40 TRANSACTIONS -->
             <div class="animate-in delay-4">
                 <div class="tx-header">
-                    <h3>Recent Activity <span style="font-weight:400;font-size:13px;color:var(--text-muted);">(30 entries)</span></h3>
+                    <h3>Recent Activity <span class="count">(40 entries)</span></h3>
                     <div class="tx-filters">
                         <button class="active" data-filter="all">All</button>
-                        <button data-filter="income">Income</button>
-                        <button data-filter="expense">Expenses</button>
+                        <button data-filter="income">Credits</button>
+                        <button data-filter="expense">Debits</button>
                     </div>
                 </div>
                 <div class="tx-list" id="transactionList">
@@ -872,83 +804,98 @@
                 }
             });
 
-            // --- 3. GENERATE 30 REALISTIC TRANSACTIONS ---
-            const merchants = [
-                { name: 'Acme Corp', type: 'income', base: 2400000 },
-                { name: 'TechFund Dividend', type: 'income', base: 320000 },
-                { name: 'Salary Deposit', type: 'income', base: 1200000 },
-                { name: 'Freelance Payment', type: 'income', base: 85000 },
-                { name: 'Stock Dividend', type: 'income', base: 47000 },
-                { name: 'Refund · Amazon', type: 'income', base: 3200 },
-                { name: 'Portfolio Investment', type: 'expense', base: 845200 },
-                { name: 'Mortgage Payment', type: 'expense', base: 12450 },
-                { name: 'Private Jet Charter', type: 'expense', base: 340000 },
-                { name: 'Luxury Boutique', type: 'expense', base: 28200 },
-                { name: 'Michelin Restaurant', type: 'expense', base: 4800 },
-                { name: 'Hotel · Ritz Carlton', type: 'expense', base: 9200 },
-                { name: 'Car Lease · Porsche', type: 'expense', base: 18000 },
-                { name: 'Yacht Maintenance', type: 'expense', base: 67000 },
-                { name: 'Private School Fees', type: 'expense', base: 56000 },
-                { name: 'Art Auction', type: 'expense', base: 210000 },
-                { name: 'Charity Donation', type: 'expense', base: 15000 },
-                { name: 'Insurance Premium', type: 'expense', base: 3400 },
-                { name: 'Utilities & Estate', type: 'expense', base: 2800 },
-                { name: 'Golf Club Membership', type: 'expense', base: 7500 },
-                { name: 'Sotheby\'s Purchase', type: 'expense', base: 125000 },
-                { name: 'Helicopter Transfer', type: 'expense', base: 42000 },
-                { name: 'Private Chef', type: 'expense', base: 6000 },
-                { name: 'Wine Collection', type: 'expense', base: 22000 },
-                { name: 'Spa & Wellness', type: 'expense', base: 3400 },
-                { name: 'Business Class Flights', type: 'expense', base: 15000 },
-                { name: 'Real Estate Tax', type: 'expense', base: 88000 },
-                { name: 'Consulting Income', type: 'income', base: 175000 },
-                { name: 'Interest Earned', type: 'income', base: 64000 },
-                { name: 'Cashback Rewards', type: 'income', base: 2200 }
+            // --- 3. GENERATE 40 REALISTIC TRANSACTIONS (Wells Fargo Style) ---
+            const merchantPool = [
+                { name: 'Acme Global Corp', type: 'income' },
+                { name: 'TechFund Dividend', type: 'income' },
+                { name: 'Salary · Wells Fargo', type: 'income' },
+                { name: 'Freelance · Design Co', type: 'income' },
+                { name: 'Stock Vesting · Alphabet', type: 'income' },
+                { name: 'Refund · Amazon', type: 'income' },
+                { name: 'Interest Earned', type: 'income' },
+                { name: 'Consulting · McKinsey', type: 'income' },
+                { name: 'Portfolio Rebalance', type: 'expense' },
+                { name: 'Mortgage Payment', type: 'expense' },
+                { name: 'Private Jet Charter', type: 'expense' },
+                { name: 'Luxury Boutique · Rodeo', type: 'expense' },
+                { name: 'Michelin Dining', type: 'expense' },
+                { name: 'Hotel · Ritz Carlton', type: 'expense' },
+                { name: 'Car Lease · Porsche', type: 'expense' },
+                { name: 'Yacht Maintenance', type: 'expense' },
+                { name: 'International School', type: 'expense' },
+                { name: 'Art Gallery Purchase', type: 'expense' },
+                { name: 'Charity · Red Cross', type: 'expense' },
+                { name: 'Insurance Premium', type: 'expense' },
+                { name: 'Estate Utilities', type: 'expense' },
+                { name: 'Golf Club Membership', type: 'expense' },
+                { name: 'Sotheby\'s Auction', type: 'expense' },
+                { name: 'Helicopter Transfer', type: 'expense' },
+                { name: 'Private Chef Services', type: 'expense' },
+                { name: 'Wine Cellar Acquisition', type: 'expense' },
+                { name: 'Spa & Wellness Retreat', type: 'expense' },
+                { name: 'First Class Flights', type: 'expense' },
+                { name: 'Property Tax', type: 'expense' },
+                { name: 'Wealth Management Fee', type: 'expense' },
+                { name: 'Dividend Reinvestment', type: 'income' },
+                { name: 'Bonus · Q3 Performance', type: 'income' },
+                { name: 'Cashback Rewards', type: 'income' },
+                { name: 'Security Deposit Return', type: 'income' },
+                { name: 'Business Revenue', type: 'income' },
+                { name: 'Capital Gains', type: 'income' },
+                { name: 'Transfer from Savings', type: 'income' },
+                { name: 'Venture Capital Payout', type: 'income' },
+                { name: 'Real Estate Rental', type: 'income' },
+                { name: 'Tax Refund', type: 'income' }
             ];
 
             function generateTransactions() {
                 const now = new Date();
-                return merchants.map((m, index) => {
-                    // Randomize amount between 60% and 140% of base
-                    const multiplier = 0.6 + Math.random() * 0.8;
-                    let amount = Math.round(m.base * multiplier);
-                    // Make amounts look realistic (round to nearest 50 or 100)
-                    if (amount > 10000) {
-                        amount = Math.round(amount / 100) * 100;
+                const transactions = [];
+                const count = 40;
+
+                for (let i = 0; i < count; i++) {
+                    const m = merchantPool[i % merchantPool.length];
+                    // Random amount logic
+                    let base = 0;
+                    if (m.type === 'income') {
+                        base = 2000 + Math.random() * 1500000;
                     } else {
-                        amount = Math.round(amount / 10) * 10;
+                        base = 500 + Math.random() * 800000;
                     }
+                    // Make it look realistic
+                    let amount = Math.round(base / 10) * 10;
+                    if (amount > 10000) amount = Math.round(amount / 100) * 100;
 
                     const isIncome = m.type === 'income';
                     const sign = isIncome ? '+' : '-';
                     const formatted = `${sign}$${amount.toLocaleString()}.00`;
 
-                    // Generate date going backwards from today
+                    // Date going backwards
                     const d = new Date(now);
-                    d.setDate(d.getDate() - index - Math.floor(Math.random() * 2));
+                    d.setDate(d.getDate() - i - Math.floor(Math.random() * 2));
                     const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                     const timeStr = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
-                    return {
-                        id: index + 1,
+                    transactions.push({
+                        id: i + 1,
                         name: m.name,
                         date: `${dateStr}, ${timeStr}`,
                         amount: formatted,
                         type: m.type,
                         icon: isIncome ? 'fa-arrow-down' : 'fa-arrow-up',
                         iconClass: isIncome ? 'income' : ''
-                    };
+                    });
+                }
+                // Sort by date descending (newest first)
+                transactions.sort((a, b) => {
+                    const da = new Date(a.date);
+                    const db = new Date(b.date);
+                    return db - da;
                 });
+                return transactions;
             }
 
             const transactions = generateTransactions();
-            // Sort so newest first (by date descending)
-            transactions.sort((a, b) => {
-                const da = new Date(a.date);
-                const db = new Date(b.date);
-                return db - da;
-            });
-
             const txList = document.getElementById('transactionList');
 
             function renderTransactions(filter = 'all') {
@@ -956,7 +903,7 @@
                 txList.innerHTML = '';
                 if (filtered.length === 0) {
                     txList.innerHTML =
-                        `<div style="color:var(--text-muted);text-align:center;padding:30px 0;">No transactions for this filter.</div>`;
+                        `<div style="color:var(--wf-muted);text-align:center;padding:30px 0;">No matching transactions.</div>`;
                     return;
                 }
                 filtered.forEach(tx => {
@@ -979,7 +926,7 @@
             // Initial render
             renderTransactions('all');
 
-            // Filter buttons
+            // Filter Buttons
             document.querySelectorAll('.tx-filters button').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.tx-filters button').forEach(b => b.classList.remove('active'));
@@ -988,20 +935,21 @@
                 });
             });
 
-            // --- 4. ANIMATE CHART BARS ON LOAD ---
+            // --- 4. ANIMATE CHART BARS ---
             const bars = document.querySelectorAll('.bar');
             bars.forEach((bar, index) => {
                 const targetHeight = bar.style.height;
                 bar.style.height = '4px';
                 setTimeout(() => {
                     bar.style.height = targetHeight;
-                }, 300 + (index * 80));
+                }, 300 + (index * 70));
             });
 
-            // --- 5. CONSOLE LOG FOR PROFESSOR ---
-            console.log('%c🏦 PremierBank Dashboard Loaded', 'font-size:20px; font-weight:bold; color:#d4af37;');
-            console.log('%cFinal Project · Front-End Development', 'font-size:14px; color:#8a8a8a;');
-            console.log(`✅ ${transactions.length} transactions generated. Features: Live Clock, Balance Toggle, 3D Cards, Filters, Animated Chart.`);
+            // --- 5. ACADEMIC CONSOLE LOG ---
+            console.log('%c🏦 Wells Fargo UI Concept Loaded', 'font-size:22px; font-weight:bold; color:#d4af37;');
+            console.log('%c📘 Front-End Development Final Project', 'font-size:14px; color:#8a8a8a;');
+            console.log(`✅ ${transactions.length} dynamic transactions generated.`);
+            console.log('⚡ Features: SVG Logo, 3D Cards, Live Clock, Balance Toggle, Smart Filters, Animated Chart.');
 
         })();
     </script>
