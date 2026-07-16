@@ -1,84 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premier Banking · Final Project</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <style>
+        /* --- RESET & ROOT --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg-primary: #0b0b0b;
+            --bg-card: #151515;
+            --red: #cd1309;
+            --gold: #d4af37;
+            --gold-dim: rgba(212, 175, 55, 0.15);
+            --text-white: #ffffff;
+            --text-muted: #8a8a8a;
+            --border-glow: rgba(205, 19, 9, 0.3);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+            margin: 0;
+        }
 
-<!-- PAGE: ACCOUNTING -->
-<div id="page-accounting" class="page">
-    <div class="pt-24 pb-12 px-6 max-w-7xl mx-auto">
-        
-        <!-- Accounting Header -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <div>
-                <h1 class="text-3xl font-bold text-slate-800 dark:text-white">Accounting & Reporting</h1>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">Review your ledger, tax documents, and financial statements.</p>
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes glowPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.02);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.08);
+            }
+        }
+        .animate-in {
+            animation: fadeUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+        .delay-4 {
+            animation-delay: 0.4s;
+        }
+
+        /* --- DASHBOARD WRAPPER --- */
+        .dashboard {
+            max-width: 1320px;
+            width: 100%;
+            background: linear-gradient(145deg, #121212, #0a0a0a);
+            border-radius: 48px;
+            padding: 32px 36px 40px;
+            border: 1px solid rgba(205, 19, 9, 0.15);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Academic Watermark - protects your work */
+        .dashboard::after {
+            content: 'FINAL PROJECT · FRONT-END DEV';
+            position: absolute;
+            bottom: 30px;
+            right: -80px;
+            transform: rotate(-20deg);
+            font-size: 60px;
+            font-weight: 900;
+            color: rgba(205, 19, 9, 0.04);
+            letter-spacing: 10px;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- TOP NAV --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .logo .icon {
+            width: 46px;
+            height: 46px;
+            background: linear-gradient(135deg, var(--red), #8b0a03);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 24px;
+            box-shadow: 0 8px 24px rgba(205, 19, 9, 0.3);
+        }
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+        .logo h1 span {
+            color: var(--gold);
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .nav-right i {
+            color: var(--text-muted);
+            font-size: 20px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .nav-right i:hover {
+            color: var(--gold);
+        }
+        .clock {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 8px 16px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            font-variant-numeric: tabular-nums;
+        }
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red), #8b0a03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+        }
+
+        /* --- GREETING & BALANCE --- */
+        .greeting-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .greeting-text h2 {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .greeting-text h2 i {
+            color: var(--gold);
+        }
+        .greeting-text p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-top: 4px;
+        }
+        .balance-area {
+            text-align: right;
+        }
+        .balance-area .label {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .balance-area .amount {
+            font-size: 46px;
+            font-weight: 800;
+            color: var(--gold);
+            letter-spacing: -1px;
+            transition: 0.3s;
+        }
+        .balance-area .amount.hidden-balance {
+            filter: blur(12px);
+            user-select: none;
+        }
+        .balance-area .amount small {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .toggle-balance {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 6px;
+        }
+        .toggle-balance:hover {
+            background: var(--gold-dim);
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        /* --- QUICK STATS --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 2;
+        }
+        .stat-item {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 18px 22px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: 0.3s;
+            cursor: default;
+        }
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--gold-dim);
+        }
+        .stat-item .s-label {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stat-item .s-value {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+        .stat-item .s-value.gold {
+            color: var(--gold);
+        }
+        .stat-item .s-value i {
+            font-size: 14px;
+            margin-right: 6px;
+        }
+        .stat-item .s-value .fa-arrow-up {
+            color: #4caf50;
+        }
+        .stat-item .s-value .fa-arrow-down {
+            color: var(--red);
+        }
+
+        /* --- MAIN 2-COL LAYOUT --- */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- CARDS COLUMN --- */
+        .cards-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .cards-header h3 {
+            color: #fff;
+            font-size: 17px;
+            font-weight: 600;
+        }
+        .cards-header h3 span {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 13px;
+            margin-left: 8px;
+        }
+        .cards-header a {
+            color: var(--gold);
+            font-size: 13px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .card-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* --- 3D ATM CARD --- */
+        .card-3d {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .card-3d-inner {
+            position: relative;
+            width: 100%;
+            min-height: 190px;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+            border-radius: 24px;
+        }
+        .card-3d:hover .card-3d-inner {
+            transform: rotateY(6deg) rotateX(4deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            min-height: 190px;
+            backface-visibility: hidden;
+            border-radius: 24px;
+            padding: 22px 26px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-face-front {
+            background: linear-gradient(145deg, #1c1c1c, #111);
+            border: 1px solid rgba(205, 19, 9, 0.25);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            z-index: 2;
+        }
+        .card-face-front.gold-border {
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        .card-face-front.gold-border::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .card-face-front::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(205, 19, 9, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .card-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            z-index: 2;
+        }
+        .chip {
+            width: 44px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--gold), #b8942b);
+            border-radius: 8px;
+            box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+        .chip::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 8px;
+            width: 12px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+        .card-type-badge {
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .card-type-badge i {
+            color: var(--gold);
+            margin-right: 4px;
+        }
+        .card-number {
+            font-family: 'Inter', monospace;
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 3px;
+            margin: 16px 0 10px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        .card-detail-row {
+            display: flex;
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        .card-detail-row .detail .lbl {
+            color: var(--text-muted);
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-detail-row .detail .val {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .card-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        .card-footer-row .holder {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        .card-footer-row .network {
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+        /* Demo mark on card */
+        .card-face-front .demo-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 16px;
+            font-size: 10px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.06);
+            letter-spacing: 3px;
+            z-index: 1;
+        }
+
+        /* --- TRANSACTIONS COLUMN --- */
+        .tx-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .tx-header h3 {
+            color: #fff;
+            font-size: 17px;
+            font-weight: 600;
+        }
+        .tx-filters {
+            display: flex;
+            gap: 6px;
+        }
+        .tx-filters button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tx-filters button.active {
+            background: var(--gold-dim);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .tx-filters button:hover {
+            border-color: var(--gold);
+            color: #fff;
+        }
+
+        .tx-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 360px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .tx-list::-webkit-scrollbar {
+            width: 3px;
+        }
+        .tx-list::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 10px;
+        }
+
+        .tx-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border-left: 3px solid transparent;
+            transition: 0.2s;
+        }
+        .tx-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: var(--gold);
+        }
+        .tx-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .tx-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(205, 19, 9, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--red);
+            font-size: 16px;
+        }
+        .tx-icon.income {
+            background: rgba(76, 175, 80, 0.12);
+            color: #4caf50;
+        }
+        .tx-info .name {
+            color: #fff;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .tx-info .date {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 2px;
+        }
+        .tx-amount {
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .tx-amount.positive {
+            color: #4caf50;
+        }
+        .tx-amount.negative {
+            color: var(--red);
+        }
+
+        /* --- CHART (CSS Bars) --- */
+        .chart-section {
+            margin-top: 28px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 20px 24px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .chart-section h4 {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        .chart-bars {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 10px;
+            height: 120px;
+        }
+        .bar-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+        .bar {
+            width: 100%;
+            max-width: 36px;
+            background: linear-gradient(180deg, var(--gold), #8a6f1b);
+            border-radius: 6px 6px 0 0;
+            height: 20px;
+            transition: height 1s ease;
+            min-height: 4px;
+        }
+        .bar-label {
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 860px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard {
+                padding: 24px 18px;
+            }
+            .greeting-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .balance-area {
+                text-align: left;
+                width: 100%;
+            }
+            .balance-area .amount {
+                font-size: 34px;
+            }
+        }
+        @media (max-width: 500px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-right {
+                justify-content: space-between;
+            }
+            .card-number {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+            .card-face {
+                padding: 16px 18px;
+                min-height: 160px;
+            }
+            .card-3d-inner {
+                min-height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+
+        <!-- NAVBAR -->
+        <nav class="navbar animate-in">
+            <div class="logo">
+                <div class="icon"><i class="fas fa-building-columns"></i></div>
+                <h1>Premier<span>Bank</span></h1>
             </div>
-            <div class="flex gap-3">
-                <button class="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium hover:text-wf-red transition">
-                    <i class="fas fa-file-pdf mr-2"></i>Export PDF
-                </button>
-                <button class="px-4 py-2 btn-primary rounded-lg text-white text-sm font-semibold shadow-lg">
-                    <i class="fas fa-plus mr-2"></i>New Entry
-                </button>
+            <div class="nav-right">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-bell"></i>
+                <div class="clock" id="liveClock"><i class="far fa-clock"></i> Loading...</div>
+                <div class="avatar">JD</div>
+            </div>
+        </nav>
+
+        <!-- GREETING & BALANCE -->
+        <section class="greeting-section animate-in delay-1">
+            <div class="greeting-text">
+                <h2>Good morning, James <i class="fas fa-wave-square"></i></h2>
+                <p>Here's your financial overview for today</p>
+            </div>
+            <div class="balance-area">
+                <div class="label">Total Balance</div>
+                <div class="amount" id="mainBalance">$47,000,000 <small>.00</small></div>
+                <button class="toggle-balance" id="toggleBalanceBtn"><i class="fas fa-eye"></i> Hide Balance</button>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <div class="stats-grid animate-in delay-2">
+            <div class="stat-item">
+                <div class="s-label"><i class="fas fa-arrow-up" style="color:#4caf50; margin-right:4px;"></i> Income</div>
+                <div class="s-value gold">$2.8M</div>
+            </div>
+            <div class="stat-item">
+                <div class="s-label"><i class="fas fa-arrow-down" style="color:#cd1309; margin-right:4px;"></i> Expenses</div>
+                <div class="s-value" style="color:#fff;">$1.2M</div>
+            </div>
+            <div class="stat-item">
+                <div class="s-label"><i class="fas fa-wallet"></i> Invested</div>
+                <div class="s-value gold">$18.4M</div>
+            </div>
+            <div class="stat-item">
+                <div class="s-label"><i class="fas fa-percent"></i> ROI</div>
+                <div class="s-value" style="color:#4caf50;">+12.4%</div>
             </div>
         </div>
 
-        <!-- KPI Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="glass-premium p-6 rounded-3xl glow-card">
-                <p class="text-xs text-slate-500 uppercase tracking-widest font-semibold">Net Income (YTD)</p>
-                <h3 class="text-2xl font-bold mt-1 text-emerald-500">+$1,240,500.00</h3>
-            </div>
-            <div class="glass-premium p-6 rounded-3xl glow-card">
-                <p class="text-xs text-slate-500 uppercase tracking-widest font-semibold">Total Liabilities</p>
-                <h3 class="text-2xl font-bold mt-1 text-wf-red">-$450,200.00</h3>
-            </div>
-            <div class="glass-premium p-6 rounded-3xl glow-card">
-                <p class="text-xs text-slate-500 uppercase tracking-widest font-semibold">Tax Liability</p>
-                <h3 class="text-2xl font-bold mt-1 text-amber-500">$82,400.00</h3>
-            </div>
-            <div class="glass-premium p-6 rounded-3xl glow-card">
-                <p class="text-xs text-slate-500 uppercase tracking-widest font-semibold">Operating Ratio</p>
-                <h3 class="text-2xl font-bold mt-1 text-slate-800 dark:text-white">68.4%</h3>
-            </div>
-        </div>
+        <!-- MAIN GRID -->
+        <div class="main-grid">
 
-        <!-- Main Ledger Table -->
-        <div class="glass-premium rounded-3xl p-6 overflow-hidden">
-            <h2 class="text-lg font-bold mb-6">Recent Ledger Entries</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead>
-                        <tr class="text-slate-400 text-xs uppercase border-b border-slate-200 dark:border-slate-700">
-                            <th class="pb-4 px-2">Date</th>
-                            <th class="pb-4 px-2">Account</th>
-                            <th class="pb-4 px-2">Memo</th>
-                            <th class="pb-4 px-2 text-right">Debit</th>
-                            <th class="pb-4 px-2 text-right">Credit</th>
-                            <th class="pb-4 px-2 text-center">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                        <!-- Example Row -->
-                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
-                            <td class="py-4 px-2 font-medium">May 06, 2026</td>
-                            <td class="py-4 px-2">Corporate Tax</td>
-                            <td class="py-4 px-2">Q2 Quarterly Payment</td>
-                            <td class="py-4 px-2 text-right text-wf-red">$82,400.00</td>
-                            <td class="py-4 px-2 text-right">-</td>
-                            <td class="py-4 px-2 text-center">
-                                <span class="status-badge status-completed">Cleared</span>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
-                            <td class="py-4 px-2 font-medium">May 05, 2026</td>
-                            <td class="py-4 px-2">Client Services</td>
-                            <td class="py-4 px-2">Consulting Fee - Project Alpha</td>
-                            <td class="py-4 px-2 text-right">-</td>
-                            <td class="py-4 px-2 text-right text-emerald-500">$125,000.00</td>
-                            <td class="py-4 px-2 text-center">
-                                <span class="status-badge status-pending">Processing</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- LEFT COLUMN -->
+            <div class="animate-in delay-3">
+                <div class="cards-header">
+                    <h3>Your Cards <span>· 2 active</span></h3>
+                    <a href="#"><i class="fas fa-plus-circle"></i> Add</a>
+                </div>
+                <div class="card-stack">
+                    <!-- Card 1 -->
+                    <div class="card-3d">
+                        <div class="card-3d-inner">
+                            <div class="card-face card-face-front">
+                                <div class="card-top-row">
+                                    <div class="chip"></div>
+                                    <span class="card-type-badge"><i class="fas fa-credit-card"></i> Platinum</span>
+                                </div>
+                                <div class="card-number">•••• 4532 •••• 8891</div>
+                                <div class="card-detail-row">
+                                    <div class="detail"><span class="lbl">Valid Thru</span><span class="val">09/28</span></div>
+                                    <div class="detail"><span class="lbl">CVV</span><span class="val">•••</span></div>
+                                </div>
+                                <div class="card-footer-row">
+                                    <span class="holder">JAMES D. WELLS</span>
+                                    <span class="network">✦ PREMIER</span>
+                                </div>
+                                <span class="demo-badge">DEMO</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 (Gold) -->
+                    <div class="card-3d">
+                        <div class="card-3d-inner">
+                            <div class="card-face card-face-front gold-border">
+                                <div class="card-top-row">
+                                    <div class="chip"></div>
+                                    <span class="card-type-badge"><i class="fas fa-crown" style="color:var(--gold);"></i> Reserve</span>
+                                </div>
+                                <div class="card-number">•••• 6741 •••• 3320</div>
+                                <div class="card-detail-row">
+                                    <div class="detail"><span class="lbl">Valid Thru</span><span class="val">12/29</span></div>
+                                    <div class="detail"><span class="lbl">CVV</span><span class="val">•••</span></div>
+                                </div>
+                                <div class="card-footer-row">
+                                    <span class="holder">JAMES D. WELLS</span>
+                                    <span class="network">✦ RESERVE</span>
+                                </div>
+                                <span class="demo-badge">DEMO</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHART -->
+                <div class="chart-section">
+                    <h4><i class="fas fa-chart-line" style="color:var(--gold); margin-right:8px;"></i>Portfolio Performance (This Week)</h4>
+                    <div class="chart-bars" id="chartBars">
+                        <div class="bar-wrap"><div class="bar" style="height:70px;"></div><span class="bar-label">Mon</span></div>
+                        <div class="bar-wrap"><div class="bar" style="height:45px;"></div><span class="bar-label">Tue</span></div>
+                        <div class="bar-wrap"><div class="bar" style="height:90px;"></div><span class="bar-label">Wed</span></div>
+                        <div class="bar-wrap"><div class="bar" style="height:60px;"></div><span class="bar-label">Thu</span></div>
+                        <div class="bar-wrap"><div class="bar" style="height:110px;"></div><span class="bar-label">Fri</span></div>
+                        <div class="bar-wrap"><div class="bar" style="height:85px;"></div><span class="bar-label">Sat</span></div>
+                        <div class="bar-wrap"><div class="bar" style="height:50px;"></div><span class="bar-label">Sun</span></div>
+                    </div>
+                </div>
             </div>
+
+            <!-- RIGHT COLUMN: TRANSACTIONS -->
+            <div class="animate-in delay-4">
+                <div class="tx-header">
+                    <h3>Recent Activity</h3>
+                    <div class="tx-filters">
+                        <button class="active" data-filter="all">All</button>
+                        <button data-filter="income">Income</button>
+                        <button data-filter="expense">Expenses</button>
+                    </div>
+                </div>
+                <div class="tx-list" id="transactionList">
+                    <!-- Items injected by JS -->
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // --- 1. LIVE CLOCK ---
+            function updateClock() {
+                const now = new Date();
+                const opts = { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
+                    second: '2-digit' };
+                document.getElementById('liveClock').innerHTML = `<i class="far fa-clock"></i> ${now.toLocaleDateString('en-US', opts)}`;
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            // --- 2. BALANCE TOGGLE ---
+            const balanceEl = document.getElementById('mainBalance');
+            const toggleBtn = document.getElementById('toggleBalanceBtn');
+            let isHidden = false;
+
+            toggleBtn.addEventListener('click', function() {
+                isHidden = !isHidden;
+                if (isHidden) {
+                    balanceEl.classList.add('hidden-balance');
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i> Show Balance';
+                } else {
+                    balanceEl.classList.remove('hidden-balance');
+                    this.innerHTML = '<i class="fas fa-eye"></i> Hide Balance';
+                }
+            });
+
+            // --- 3. TRANSACTIONS DATA ---
+            const transactions = [{
+                id: 1,
+                name: 'Wire Transfer · Acme Corp',
+                date: 'Today, 10:32 AM',
+                amount: '+$2,400,000.00',
+                type: 'income',
+                icon: 'fa-arrow-down',
+                iconClass: 'income'
+            }, {
+                id: 2,
+                name: 'Portfolio Investment',
+                date: 'Yesterday, 4:15 PM',
+                amount: '-$845,200.00',
+                type: 'expense',
+                icon: 'fa-arrow-up',
+                iconClass: ''
+            }, {
+                id: 3,
+                name: 'Dividend Payout · TechFund',
+                date: 'Jul 14, 9:00 AM',
+                amount: '+$320,000.00',
+                type: 'income',
+                icon: 'fa-arrow-down',
+                iconClass: 'income'
+            }, {
+                id: 4,
+                name: 'Mortgage Payment',
+                date: 'Jul 13, 2:00 PM',
+                amount: '-$12,450.00',
+                type: 'expense',
+                icon: 'fa-arrow-up',
+                iconClass: ''
+            }, {
+                id: 5,
+                name: 'Salary Deposit',
+                date: 'Jul 12, 8:00 AM',
+                amount: '+$1,200,000.00',
+                type: 'income',
+                icon: 'fa-arrow-down',
+                iconClass: 'income'
+            }, {
+                id: 6,
+                name: 'Private Jet Charter',
+                date: 'Jul 11, 6:30 PM',
+                amount: '-$340,000.00',
+                type: 'expense',
+                icon: 'fa-arrow-up',
+                iconClass: ''
+            }];
+
+            const txList = document.getElementById('transactionList');
+
+            function renderTransactions(filter = 'all') {
+                const filtered = filter === 'all' ? transactions : transactions.filter(tx => tx.type === filter);
+                txList.innerHTML = '';
+                filtered.forEach(tx => {
+                    const div = document.createElement('div');
+                    div.className = 'tx-item';
+                    div.innerHTML = `
+                        <div class="tx-left">
+                            <div class="tx-icon ${tx.iconClass}"><i class="fas ${tx.icon}"></i></div>
+                            <div class="tx-info">
+                                <div class="name">${tx.name}</div>
+                                <div class="date">${tx.date}</div>
+                            </div>
+                        </div>
+                        <div class="tx-amount ${tx.type === 'income' ? 'positive' : 'negative'}">${tx.amount}</div>
+                    `;
+                    txList.appendChild(div);
+                });
+            }
+
+            // Initial render
+            renderTransactions('all');
+
+            // Filter buttons
+            document.querySelectorAll('.tx-filters button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tx-filters button').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    renderTransactions(this.dataset.filter);
+                });
+            });
+
+            // --- 4. ANIMATE CHART BARS ON LOAD (Stagger effect) ---
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach((bar, index) => {
+                const targetHeight = bar.style.height;
+                bar.style.height = '4px';
+                setTimeout(() => {
+                    bar.style.height = targetHeight;
+                }, 300 + (index * 80));
+            });
+
+            // --- 5. ADD A LITTLE INTERACTIVE CONSOLE LOG FOR THE PROFESSOR ---
+            console.log('%c🏦 PremierBank Dashboard Loaded', 'font-size:20px; font-weight:bold; color:#d4af37;');
+            console.log('%cFinal Project · Front-End Development', 'font-size:14px; color:#8a8a8a;');
+            console.log('✅ Features: Live Clock, Balance Toggle, 3D Cards, Transaction Filters, Animated Chart.');
+
+        })();
+    </script>
+
+</body>
+</html>
