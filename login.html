@@ -9,13 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
-        /* ── Reset & Base ── */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: #f5f7fa;
@@ -25,8 +23,6 @@
             color: #1a1a2e;
             line-height: 1.5;
         }
-
-        /* ── Top Navigation Bar ── */
         .top-bar {
             background: #0a1628;
             padding: 0 2rem;
@@ -39,13 +35,11 @@
             top: 0;
             z-index: 100;
         }
-
         .top-bar .logo-area {
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
-
         .top-bar .logo-icon {
             background: #cd1309;
             width: 34px;
@@ -59,26 +53,22 @@
             color: #fff;
             letter-spacing: -0.5px;
         }
-
         .top-bar .logo-text {
             color: #fff;
             font-weight: 600;
             font-size: 1.25rem;
             letter-spacing: 0.3px;
         }
-
         .top-bar .logo-text span {
             font-weight: 300;
             color: #a0b3d9;
         }
-
         .top-bar .nav-links {
             display: flex;
             align-items: center;
             gap: 2rem;
             list-style: none;
         }
-
         .top-bar .nav-links a {
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
@@ -87,11 +77,9 @@
             transition: color 0.25s ease;
             letter-spacing: 0.2px;
         }
-
         .top-bar .nav-links a:hover {
             color: #fff;
         }
-
         .top-bar .nav-links a.cta-link {
             background: #cd1309;
             color: #fff;
@@ -100,12 +88,9 @@
             font-weight: 600;
             transition: background 0.25s ease;
         }
-
         .top-bar .nav-links a.cta-link:hover {
             background: #b01008;
         }
-
-        /* ── Main Container ── */
         .main-container {
             flex: 1;
             display: flex;
@@ -114,8 +99,6 @@
             padding: 2.5rem 1.5rem;
             background: linear-gradient(145deg, #f0f3f9 0%, #e6ecf5 100%);
         }
-
-        /* ── Login Card ── */
         .login-card {
             background: #ffffff;
             border-radius: 24px;
@@ -127,18 +110,15 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(2px);
         }
-
         .login-card:hover {
             box-shadow: 0 28px 72px rgba(10, 22, 40, 0.18), 0 8px 28px rgba(0, 0, 0, 0.06);
         }
-
         .login-card .brand-badge {
             display: flex;
             align-items: center;
             gap: 0.6rem;
             margin-bottom: 0.5rem;
         }
-
         .login-card .brand-badge .badge-icon {
             background: #cd1309;
             width: 28px;
@@ -151,14 +131,12 @@
             font-size: 14px;
             color: #fff;
         }
-
         .login-card .brand-badge .badge-text {
             font-weight: 600;
             font-size: 0.95rem;
             color: #0a1628;
             letter-spacing: 0.2px;
         }
-
         .login-card h1 {
             font-size: 1.65rem;
             font-weight: 700;
@@ -166,7 +144,6 @@
             margin: 0.25rem 0 0.3rem;
             letter-spacing: -0.3px;
         }
-
         .login-card .subhead {
             color: #5a6a82;
             font-size: 0.95rem;
@@ -175,12 +152,9 @@
             border-left: 3px solid #cd1309;
             padding-left: 0.85rem;
         }
-
-        /* ── Form ── */
         .login-form .form-group {
             margin-bottom: 1.25rem;
         }
-
         .login-form label {
             display: block;
             font-size: 0.8rem;
@@ -190,7 +164,6 @@
             letter-spacing: 0.6px;
             margin-bottom: 0.4rem;
         }
-
         .login-form .input-wrapper {
             position: relative;
             display: flex;
@@ -200,24 +173,20 @@
             transition: border-color 0.25s ease, box-shadow 0.25s ease;
             background: #fafcff;
         }
-
         .login-form .input-wrapper:focus-within {
             border-color: #cd1309;
             box-shadow: 0 0 0 4px rgba(205, 19, 9, 0.08);
             background: #ffffff;
         }
-
         .login-form .input-wrapper .icon-left {
             padding: 0 0 0 1rem;
             color: #8a9bb8;
             font-size: 0.95rem;
             transition: color 0.25s ease;
         }
-
         .login-form .input-wrapper:focus-within .icon-left {
             color: #cd1309;
         }
-
         .login-form .input-wrapper input {
             width: 100%;
             padding: 0.85rem 1rem 0.85rem 0.75rem;
@@ -229,13 +198,11 @@
             outline: none;
             font-family: "Inter", sans-serif;
         }
-
         .login-form .input-wrapper input::placeholder {
             color: #a8b8d0;
             font-weight: 400;
             font-size: 0.9rem;
         }
-
         .login-form .input-wrapper .toggle-password {
             padding: 0 1rem 0 0.5rem;
             color: #8a9bb8;
@@ -245,12 +212,9 @@
             background: none;
             border: none;
         }
-
         .login-form .input-wrapper .toggle-password:hover {
             color: #1e2a44;
         }
-
-        /* ── Extra Options ── */
         .form-options {
             display: flex;
             align-items: center;
@@ -259,7 +223,6 @@
             flex-wrap: wrap;
             gap: 0.5rem;
         }
-
         .form-options .remember-me {
             display: flex;
             align-items: center;
@@ -269,7 +232,6 @@
             cursor: pointer;
             font-weight: 500;
         }
-
         .form-options .remember-me input[type="checkbox"] {
             width: 17px;
             height: 17px;
@@ -279,7 +241,6 @@
             border: 1.5px solid #bcc9e0;
             transition: all 0.2s ease;
         }
-
         .form-options .forgot-link {
             font-size: 0.85rem;
             color: #cd1309;
@@ -287,13 +248,10 @@
             font-weight: 600;
             transition: color 0.2s ease;
         }
-
         .form-options .forgot-link:hover {
             color: #a00e06;
             text-decoration: underline;
         }
-
-        /* ── Submit Button ── */
         .btn-signin {
             width: 100%;
             padding: 0.95rem;
@@ -312,28 +270,22 @@
             justify-content: center;
             gap: 0.6rem;
         }
-
         .btn-signin:hover {
             background: #b01008;
             box-shadow: 0 8px 24px rgba(205, 19, 9, 0.3);
             transform: translateY(-1px);
         }
-
         .btn-signin:active {
             transform: translateY(0px);
             box-shadow: 0 4px 12px rgba(205, 19, 9, 0.2);
         }
-
         .btn-signin i {
             font-size: 1rem;
             transition: transform 0.25s ease;
         }
-
         .btn-signin:hover i {
             transform: translateX(4px);
         }
-
-        /* ── Divider ── */
         .divider {
             display: flex;
             align-items: center;
@@ -345,7 +297,6 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
         }
-
         .divider::before,
         .divider::after {
             content: "";
@@ -353,8 +304,6 @@
             height: 1px;
             background: #e2e8f0;
         }
-
-        /* ── Footer Links ── */
         .login-footer-links {
             display: flex;
             justify-content: center;
@@ -362,7 +311,6 @@
             flex-wrap: wrap;
             margin-top: 0.5rem;
         }
-
         .login-footer-links a {
             font-size: 0.8rem;
             color: #5a6a82;
@@ -370,12 +318,9 @@
             font-weight: 500;
             transition: color 0.2s ease;
         }
-
         .login-footer-links a:hover {
             color: #cd1309;
         }
-
-        /* ── Security Badge ── */
         .security-badge {
             display: flex;
             align-items: center;
@@ -386,13 +331,10 @@
             color: #5a6a82;
             font-weight: 500;
         }
-
         .security-badge i {
             color: #1a8a4a;
             font-size: 0.85rem;
         }
-
-        /* ── Bottom Bar ── */
         .bottom-bar {
             background: #0a1628;
             padding: 1.25rem 2rem;
@@ -403,20 +345,17 @@
             gap: 1rem;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
-
         .bottom-bar p {
             color: rgba(255, 255, 255, 0.5);
             font-size: 0.75rem;
             font-weight: 400;
             letter-spacing: 0.2px;
         }
-
         .bottom-bar .bottom-links {
             display: flex;
             gap: 1.5rem;
             flex-wrap: wrap;
         }
-
         .bottom-bar .bottom-links a {
             color: rgba(255, 255, 255, 0.5);
             text-decoration: none;
@@ -424,12 +363,9 @@
             font-weight: 400;
             transition: color 0.2s ease;
         }
-
         .bottom-bar .bottom-links a:hover {
             color: rgba(255, 255, 255, 0.85);
         }
-
-        /* ── Responsive ── */
         @media (max-width: 640px) {
             .top-bar {
                 padding: 0 1rem;
@@ -453,7 +389,6 @@
                 height: 28px;
                 font-size: 14px;
             }
-
             .login-card {
                 padding: 1.75rem 1.25rem 1.5rem;
                 border-radius: 18px;
@@ -493,7 +428,6 @@
                 padding: 1.5rem 1rem;
             }
         }
-
         @media (max-width: 400px) {
             .top-bar .nav-links a:not(.cta-link) {
                 display: none;
@@ -506,17 +440,13 @@
                 padding: 1.5rem 1rem 1.25rem;
             }
         }
-
-        /* ── Validation States ── */
         .login-form .input-wrapper.error {
             border-color: #d32f2f;
             box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.08);
         }
-
         .login-form .input-wrapper.error .icon-left {
             color: #d32f2f;
         }
-
         .field-error {
             font-size: 0.75rem;
             color: #d32f2f;
@@ -526,12 +456,9 @@
             align-items: center;
             gap: 0.35rem;
         }
-
         .field-error.show {
             display: flex;
         }
-
-        /* ── Toast ── */
         .toast {
             position: fixed;
             bottom: 2rem;
@@ -554,35 +481,27 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
             max-width: 90%;
         }
-
         .toast.show {
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
         }
-
         .toast i {
             font-size: 1.1rem;
         }
-
         .toast.success i {
             color: #4caf50;
         }
-
         .toast.error i {
             color: #ef5350;
         }
-
-        /* ── Loading state ── */
         .btn-signin.loading {
             pointer-events: none;
             opacity: 0.85;
         }
-
         .btn-signin.loading .btn-text {
             visibility: hidden;
         }
-
         .btn-signin.loading .btn-text::after {
             content: "";
             position: absolute;
@@ -597,29 +516,48 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-
         .btn-signin .btn-text {
             position: relative;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
         }
-
         @keyframes spin {
             to {
                 transform: translate(-50%, -50%) rotate(360deg);
             }
         }
-
-        /* ── Smooth scroll ── */
         html {
             scroll-behavior: smooth;
+        }
+        /* demo hint */
+        .demo-hint {
+            background: #f0f4ff;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.8rem;
+            color: #1e2a44;
+            border-left: 4px solid #cd1309;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .demo-hint strong {
+            color: #0a1628;
+        }
+        .demo-hint code {
+            background: #dce1ec;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #0a1628;
         }
     </style>
 </head>
 <body>
-
-    <!-- ─── TOP BAR ─── -->
     <header class="top-bar">
         <div class="logo-area">
             <div class="logo-icon">WF</div>
@@ -632,12 +570,8 @@
             <li><a href="#" class="cta-link">Open Account</a></li>
         </ul>
     </header>
-
-    <!-- ─── MAIN ─── -->
     <main class="main-container">
         <div class="login-card">
-
-            <!-- Brand -->
             <div class="brand-badge">
                 <div class="badge-icon">WF</div>
                 <span class="badge-text">Online Banking</span>
@@ -645,40 +579,29 @@
             <h1>Sign In</h1>
             <div class="subhead">Access your accounts securely</div>
 
-            <!-- Form -->
-            <form class="login-form" id="loginForm" novalidate>
+            <!-- DEMO HINT -->
+            <div class="demo-hint">
+                <i class="fas fa-key" style="color:#cd1309;"></i>
+                <span><strong>Demo:</strong> use <code>demo@wellsfargo.com</code> / <code>Demo1234</code></span>
+            </div>
 
-                <!-- Username -->
+            <form class="login-form" id="loginForm" novalidate>
                 <div class="form-group">
                     <label for="username">Username or Email</label>
                     <div class="input-wrapper" id="usernameWrapper">
                         <span class="icon-left"><i class="fas fa-user"></i></span>
-                        <input
-                        type="text"
-                        id="username"
-                        placeholder="Enter your username or email"
-                        autocomplete="username"
-                        required
-                        />
+                        <input type="text" id="username" placeholder="Enter your username or email" autocomplete="username" required />
                     </div>
                     <div class="field-error" id="usernameError">
                         <i class="fas fa-exclamation-circle"></i>
                         Please enter a valid username or email.
                     </div>
                 </div>
-
-                <!-- Password -->
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="input-wrapper" id="passwordWrapper">
                         <span class="icon-left"><i class="fas fa-lock"></i></span>
-                        <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                        required
-                        />
+                        <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required />
                         <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -688,8 +611,6 @@
                         Password must be at least 8 characters.
                     </div>
                 </div>
-
-                <!-- Options -->
                 <div class="form-options">
                     <label class="remember-me">
                         <input type="checkbox" id="rememberMe" checked />
@@ -697,37 +618,25 @@
                     </label>
                     <a href="#" class="forgot-link">Forgot password?</a>
                 </div>
-
-                <!-- Submit -->
                 <button type="submit" class="btn-signin" id="signinBtn">
                     <span class="btn-text">
                         <span>Sign In</span>
                         <i class="fas fa-arrow-right"></i>
                     </span>
                 </button>
-
             </form>
-
-            <!-- Divider -->
             <div class="divider">or</div>
-
-            <!-- Footer links -->
             <div class="login-footer-links">
                 <a href="#">Enroll</a>
                 <a href="#">Security Center</a>
                 <a href="#">View Demo</a>
             </div>
-
-            <!-- Security -->
             <div class="security-badge">
                 <i class="fas fa-shield-alt"></i>
                 <span>Bank-grade encryption • 256-bit SSL</span>
             </div>
-
         </div>
     </main>
-
-    <!-- ─── BOTTOM BAR ─── -->
     <footer class="bottom-bar">
         <p>&copy; 2026 Wells Fargo &middot; All rights reserved.</p>
         <div class="bottom-links">
@@ -738,14 +647,11 @@
             <a href="#">FDIC</a>
         </div>
     </footer>
-
-    <!-- ─── TOAST ─── -->
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
         <span id="toastMessage">Successfully signed in!</span>
     </div>
 
-    <!-- ─── JAVASCRIPT ─── -->
     <script>
         (function() {
             "use strict";
@@ -763,9 +669,12 @@
             const toastMessage = document.getElementById('toastMessage');
             const rememberMe = document.getElementById('rememberMe');
 
+            // ── DEMO CREDENTIALS ──
+            const DEMO_USER = 'demo@wellsfargo.com';
+            const DEMO_PASS = 'Demo1234';
+
             let toastTimeout = null;
 
-            // ── Toggle Password ──
             togglePassword.addEventListener('click', function() {
                 const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
                 password.setAttribute('type', type);
@@ -774,14 +683,12 @@
                 icon.classList.toggle('fa-eye-slash');
             });
 
-            // ── Real‑time validation cleanup ──
             username.addEventListener('input', function() {
                 if (this.value.trim().length > 0) {
                     usernameWrapper.classList.remove('error');
                     usernameError.classList.remove('show');
                 }
             });
-
             password.addEventListener('input', function() {
                 if (this.value.length >= 8) {
                     passwordWrapper.classList.remove('error');
@@ -789,14 +696,13 @@
                 }
             });
 
-            // ── Form Submit ──
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
                 let isValid = true;
-
-                // Username
                 const usernameVal = username.value.trim();
+                const passwordVal = password.value;
+
                 if (usernameVal.length === 0) {
                     usernameWrapper.classList.add('error');
                     usernameError.classList.add('show');
@@ -806,8 +712,6 @@
                     usernameError.classList.remove('show');
                 }
 
-                // Password
-                const passwordVal = password.value;
                 if (passwordVal.length < 8) {
                     passwordWrapper.classList.add('error');
                     passwordError.classList.add('show');
@@ -822,54 +726,51 @@
                     return;
                 }
 
-                // ── Simulate login ──
+                // ── Validate demo credentials ──
+                if (usernameVal !== DEMO_USER || passwordVal !== DEMO_PASS) {
+                    showToast('Invalid username or password. Try demo@wellsfargo.com / Demo1234', 'error');
+                    return;
+                }
+
+                // ── Simulate login & redirect ──
                 signinBtn.classList.add('loading');
                 signinBtn.disabled = true;
-
-                const remember = rememberMe.checked ? 'Yes' : 'No';
 
                 setTimeout(function() {
                     signinBtn.classList.remove('loading');
                     signinBtn.disabled = false;
+                    showToast('✅ Login successful! Redirecting...', 'success');
 
-                    const msg = `Welcome back, ${usernameVal}! (Remember me: ${remember})`;
-                    showToast(msg, 'success');
-
-                    // Reset form (optional)
-                    // form.reset();
-                    // usernameWrapper.classList.remove('error');
-                    // passwordWrapper.classList.remove('error');
-
-                }, 1800);
+                    // Redirect to account.html after brief delay
+                    setTimeout(function() {
+                        window.location.href = 'account.html';
+                    }, 800);
+                }, 1200);
             });
 
-            // ── Toast ──
             function showToast(message, type = 'success') {
                 toastMessage.textContent = message;
                 toast.className = 'toast ' + type;
-                // force reflow
                 void toast.offsetWidth;
                 toast.classList.add('show');
-
                 if (toastTimeout) clearTimeout(toastTimeout);
                 toastTimeout = setTimeout(function() {
                     toast.classList.remove('show');
                 }, 4200);
             }
 
-            // ── Optional: Enter key triggers submit ──
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' && document.activeElement === password) {
                     form.dispatchEvent(new Event('submit'));
                 }
             });
 
-            // ── Load saved username (demo) ──
-            // (no-op, just a polish detail)
+            // Pre-fill demo credentials for quick testing (optional)
+            username.value = DEMO_USER;
+            password.value = DEMO_PASS;
 
-            console.log('🔐 Wells Fargo Premium Login — ready');
+            console.log('🔐 Wells Fargo Premium Login — demo credentials loaded');
         })();
     </script>
-
 </body>
 </html>
