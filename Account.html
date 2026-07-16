@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wells Fargo · UI Concept (Final Project)</title>
+    <title>Wells Fargo · Full Service UI Concept</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <style>
-        /* --- RESET & ROOT (Wells Fargo Inspired Colors) --- */
+        /* --- RESET & ROOT (Wells Fargo Signature Palette) --- */
         * {
             margin: 0;
             padding: 0;
@@ -20,25 +20,31 @@
             --wf-red-dark: #a00f07;
             --wf-gold: #d4af37;
             --wf-gold-dim: rgba(212, 175, 55, 0.15);
-            --wf-bg: #0d0d0d;
-            --wf-card-bg: #151515;
+            --wf-gold-glow: rgba(212, 175, 55, 0.3);
+            --wf-bg: #0a0a0a;
+            --wf-card-bg: #141414;
             --wf-text: #ffffff;
             --wf-muted: #8a8a8a;
+            --wf-border: rgba(255, 255, 255, 0.06);
+        }
+        html {
+            scroll-behavior: smooth;
         }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--wf-bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            color: var(--wf-text);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 20px;
             margin: 0;
         }
 
         /* --- ANIMATIONS --- */
         @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(30px); }
+            0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
         @keyframes pulseGlow {
@@ -51,28 +57,31 @@
         .delay-3 { animation-delay: 0.2s; }
         .delay-4 { animation-delay: 0.3s; }
 
-        /* --- DASHBOARD WRAPPER --- */
-        .dashboard {
-            max-width: 1360px;
+        /* --- MAIN WRAPPER --- */
+        .dashboard-wrapper {
+            max-width: 1380px;
             width: 100%;
-            background: linear-gradient(145deg, #111, #0a0a0a);
+            background: linear-gradient(145deg, #111, #080808);
             border-radius: 40px;
-            padding: 32px 38px 40px;
-            border: 1px solid rgba(205, 19, 9, 0.2);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.95);
+            padding: 28px 34px 0;
+            border: 1px solid rgba(205, 19, 9, 0.15);
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.95);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 90vh;
         }
-        /* Educational Watermark - Protects your project */
-        .dashboard::after {
-            content: 'EDUCATIONAL DEMO · FRONT-END PROJECT';
+        /* Global Educational Watermark */
+        .dashboard-wrapper::before {
+            content: 'EDUCATIONAL DEMO · FRONT-END FINAL PROJECT';
             position: absolute;
-            bottom: 30px;
-            right: -60px;
-            transform: rotate(-18deg);
-            font-size: 58px;
+            bottom: 80px;
+            right: -40px;
+            transform: rotate(-16deg);
+            font-size: 60px;
             font-weight: 900;
-            color: rgba(205, 19, 9, 0.04);
+            color: rgba(205, 19, 9, 0.035);
             letter-spacing: 8px;
             white-space: nowrap;
             pointer-events: none;
@@ -84,9 +93,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             position: relative;
-            z-index: 2;
+            z-index: 10;
             flex-wrap: wrap;
             gap: 16px;
         }
@@ -94,122 +103,149 @@
             display: flex;
             align-items: center;
             gap: 14px;
+            text-decoration: none;
         }
         .logo-svg {
             width: 48px;
             height: 48px;
-            filter: drop-shadow(0 4px 12px rgba(205, 19, 9, 0.3));
+            filter: drop-shadow(0 4px 12px rgba(205, 19, 9, 0.4));
         }
         .logo-text {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             color: #fff;
             letter-spacing: -0.5px;
+            line-height: 1.1;
         }
-        .logo-text span {
-            color: var(--wf-gold);
-        }
+        .logo-text span { color: var(--wf-gold); }
         .logo-text small {
             display: block;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 500;
             color: var(--wf-muted);
             letter-spacing: 2px;
             margin-top: -2px;
         }
 
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .nav-links button {
+            background: transparent;
+            border: none;
+            color: var(--wf-muted);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-links button i { margin-right: 8px; }
+        .nav-links button.active {
+            background: var(--wf-red);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(205, 19, 9, 0.3);
+        }
+        .nav-links button:hover:not(.active) { color: #fff; background: rgba(255,255,255,0.05); }
+
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 22px;
+            gap: 18px;
         }
         .nav-right i {
             color: var(--wf-muted);
-            font-size: 20px;
+            font-size: 18px;
             transition: 0.2s;
             cursor: pointer;
         }
         .nav-right i:hover { color: var(--wf-gold); }
         .clock-display {
             color: var(--wf-muted);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             background: rgba(255,255,255,0.04);
-            padding: 8px 18px;
+            padding: 6px 16px;
             border-radius: 40px;
-            border: 1px solid rgba(255,255,255,0.04);
+            border: 1px solid var(--wf-border);
             font-variant-numeric: tabular-nums;
         }
         .avatar {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--wf-red), var(--wf-red-dark));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
+            font-size: 16px;
             color: #fff;
             border: 2px solid var(--wf-gold);
             cursor: pointer;
         }
 
-        /* --- GREETING & BALANCE --- */
+        /* --- PAGE CONTENT CONTAINER --- */
+        .pages-container {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+            padding-bottom: 20px;
+        }
+        .page {
+            display: none;
+            animation: fadeUp 0.4s ease;
+        }
+        .page.active-page {
+            display: block;
+        }
+
+        /* ==================== DASHBOARD PAGE ==================== */
         .greeting-section {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 2;
+            margin-bottom: 28px;
             flex-wrap: wrap;
             gap: 16px;
         }
-        .greeting-text h2 {
-            color: #fff;
-            font-size: 28px;
-            font-weight: 600;
-        }
+        .greeting-text h2 { font-size: 26px; font-weight: 600; }
         .greeting-text h2 i { color: var(--wf-gold); }
-        .greeting-text p {
-            color: var(--wf-muted);
-            font-size: 15px;
-            margin-top: 4px;
-        }
+        .greeting-text p { color: var(--wf-muted); font-size: 14px; margin-top: 2px; }
         .balance-area { text-align: right; }
         .balance-area .label {
             color: var(--wf-muted);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .balance-area .amount {
-            font-size: 46px;
+            font-size: 44px;
             font-weight: 800;
             color: var(--wf-gold);
             letter-spacing: -1px;
             transition: 0.3s;
         }
-        .balance-area .amount.hidden-balance {
-            filter: blur(14px);
-            user-select: none;
-        }
-        .balance-area .amount small {
-            font-size: 24px;
-            font-weight: 600;
-            color: #fff;
-        }
+        .balance-area .amount.hidden-balance { filter: blur(14px); user-select: none; }
+        .balance-area .amount small { font-size: 22px; font-weight: 600; color: #fff; }
         .toggle-balance {
             background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid var(--wf-border);
             color: var(--wf-muted);
-            padding: 5px 16px;
+            padding: 4px 14px;
             border-radius: 30px;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
             transition: 0.2s;
-            margin-top: 6px;
+            margin-top: 4px;
         }
         .toggle-balance:hover {
             background: var(--wf-gold-dim);
@@ -217,140 +253,99 @@
             border-color: var(--wf-gold);
         }
 
-        /* --- QUICK STATS --- */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 32px;
-            position: relative;
-            z-index: 2;
+            gap: 14px;
+            margin-bottom: 28px;
         }
         .stat-item {
             background: rgba(255,255,255,0.02);
-            padding: 16px 20px;
-            border-radius: 18px;
-            border: 1px solid rgba(255,255,255,0.04);
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1px solid var(--wf-border);
             transition: 0.3s;
         }
-        .stat-item:hover {
-            background: rgba(255,255,255,0.05);
-            border-color: var(--wf-gold-dim);
-        }
+        .stat-item:hover { background: rgba(255,255,255,0.05); border-color: var(--wf-gold-dim); }
         .stat-item .s-label {
             color: var(--wf-muted);
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .stat-item .s-value {
-            color: #fff;
             font-size: 22px;
             font-weight: 700;
-            margin-top: 4px;
+            margin-top: 2px;
         }
         .stat-item .s-value.gold { color: var(--wf-gold); }
-        .stat-item .s-value i { font-size: 14px; margin-right: 6px; }
+        .stat-item .s-value i { font-size: 14px; margin-right: 4px; }
         .stat-item .s-value .fa-arrow-up { color: #4caf50; }
         .stat-item .s-value .fa-arrow-down { color: var(--wf-red); }
 
-        /* --- MAIN GRID --- */
         .main-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
-            gap: 30px;
-            position: relative;
-            z-index: 2;
+            gap: 28px;
         }
 
-        /* --- CARDS COLUMN --- */
+        /* --- CARDS --- */
         .cards-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
-        .cards-header h3 {
-            color: #fff;
-            font-size: 17px;
-            font-weight: 600;
-        }
-        .cards-header h3 span {
-            color: var(--wf-muted);
-            font-weight: 400;
-            font-size: 13px;
-            margin-left: 8px;
-        }
-        .cards-header a {
-            color: var(--wf-gold);
-            font-size: 13px;
-            text-decoration: none;
-            font-weight: 500;
-        }
+        .cards-header h3 { font-size: 16px; font-weight: 600; }
+        .cards-header h3 span { color: var(--wf-muted); font-weight: 400; font-size: 12px; margin-left: 6px; }
+        .cards-header a { color: var(--wf-gold); font-size: 12px; text-decoration: none; font-weight: 600; }
+        .card-stack { display: flex; flex-direction: column; gap: 18px; }
 
-        .card-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* --- 3D ATM CARD (Wells Fargo Style) --- */
-        .card-3d {
-            perspective: 1200px;
-            cursor: pointer;
-        }
+        /* 3D Card */
+        .card-3d { perspective: 1200px; cursor: pointer; }
         .card-3d-inner {
             position: relative;
             width: 100%;
-            min-height: 200px;
+            min-height: 190px;
             transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             transform-style: preserve-3d;
-            border-radius: 24px;
+            border-radius: 22px;
         }
-        .card-3d:hover .card-3d-inner {
-            transform: rotateY(5deg) rotateX(3deg) scale(1.01);
-        }
+        .card-3d:hover .card-3d-inner { transform: rotateY(5deg) rotateX(3deg) scale(1.01); }
         .card-face {
             position: absolute;
             width: 100%;
-            min-height: 200px;
+            min-height: 190px;
             backface-visibility: hidden;
-            border-radius: 24px;
-            padding: 24px 28px;
+            border-radius: 22px;
+            padding: 22px 26px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         .card-face-front {
-            background: linear-gradient(145deg, #1c1c1c, #0e0e0e);
-            border: 1px solid rgba(205, 19, 9, 0.3);
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border: 1px solid rgba(205, 19, 9, 0.25);
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
             z-index: 2;
         }
-        .card-face-front.gold-accent {
-            border-color: rgba(212, 175, 55, 0.35);
-        }
+        .card-face-front.gold-accent { border-color: rgba(212, 175, 55, 0.35); }
         .card-face-front.gold-accent::before {
             content: '';
             position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 250px;
-            height: 250px;
+            top: -30%; right: -10%;
+            width: 240px; height: 240px;
             background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
             border-radius: 50%;
         }
         .card-face-front::before {
             content: '';
             position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 250px;
-            height: 250px;
+            top: -30%; right: -10%;
+            width: 240px; height: 240px;
             background: radial-gradient(circle, rgba(205, 19, 9, 0.1) 0%, transparent 70%);
             border-radius: 50%;
         }
-
         .card-top-row {
             display: flex;
             justify-content: space-between;
@@ -359,8 +354,7 @@
             z-index: 2;
         }
         .card-chip {
-            width: 48px;
-            height: 36px;
+            width: 44px; height: 32px;
             background: linear-gradient(135deg, var(--wf-gold), #b8942b);
             border-radius: 8px;
             box-shadow: inset 0 -2px 6px rgba(0,0,0,0.4);
@@ -369,113 +363,110 @@
         .card-chip::after {
             content: '';
             position: absolute;
-            top: 6px;
-            left: 10px;
-            width: 12px;
-            height: 8px;
+            top: 5px; left: 8px;
+            width: 10px; height: 7px;
             background: rgba(255,255,255,0.2);
             border-radius: 2px;
         }
         .card-type-badge {
             color: var(--wf-muted);
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
         }
-        .card-type-badge i { color: var(--wf-gold); margin-right: 6px; }
-
+        .card-type-badge i { color: var(--wf-gold); margin-right: 4px; }
         .card-number {
             font-family: 'Inter', monospace;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 600;
             color: #fff;
-            letter-spacing: 4px;
-            margin: 18px 0 12px;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-        .card-detail-row {
-            display: flex;
-            gap: 32px;
+            letter-spacing: 3px;
+            margin: 14px 0 10px;
             position: relative;
             z-index: 2;
         }
+        .card-detail-row { display: flex; gap: 28px; position: relative; z-index: 2; }
         .card-detail-row .detail .lbl {
             color: var(--wf-muted);
-            font-size: 9px;
+            font-size: 8px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .card-detail-row .detail .val {
-            color: #fff;
-            font-size: 15px;
-            font-weight: 600;
-        }
+        .card-detail-row .detail .val { color: #fff; font-size: 14px; font-weight: 600; }
         .card-footer-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 12px;
+            margin-top: 8px;
             position: relative;
             z-index: 2;
         }
-        .card-footer-row .holder {
-            color: #fff;
-            font-weight: 600;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-        }
-        .card-footer-row .network {
-            color: var(--wf-gold);
-            font-weight: 800;
-            font-size: 13px;
-            letter-spacing: 2px;
-        }
-        /* Micro-text on cards */
+        .card-footer-row .holder { color: #fff; font-weight: 600; font-size: 13px; }
+        .card-footer-row .network { color: var(--wf-gold); font-weight: 800; font-size: 12px; letter-spacing: 2px; }
         .card-face-front .demo-tag {
             position: absolute;
-            bottom: 14px;
-            right: 18px;
-            font-size: 9px;
+            bottom: 12px; right: 16px;
+            font-size: 8px;
             font-weight: 800;
             color: rgba(255,255,255,0.04);
             letter-spacing: 4px;
             z-index: 1;
         }
 
-        /* --- TRANSACTIONS COLUMN --- */
+        /* --- CHART --- */
+        .chart-section {
+            margin-top: 24px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 18px;
+            padding: 18px 20px 20px;
+            border: 1px solid var(--wf-border);
+        }
+        .chart-section h4 { font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+        .chart-bars {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 8px;
+            height: 110px;
+        }
+        .bar-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+        }
+        .bar {
+            width: 100%;
+            max-width: 32px;
+            background: linear-gradient(180deg, var(--wf-gold), #8a6f1b);
+            border-radius: 4px 4px 0 0;
+            height: 20px;
+            transition: height 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            min-height: 4px;
+        }
+        .bar-label { color: var(--wf-muted); font-size: 9px; font-weight: 500; }
+
+        /* --- TRANSACTIONS --- */
         .tx-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
-        .tx-header h3 {
-            color: #fff;
-            font-size: 17px;
-            font-weight: 600;
-        }
-        .tx-header h3 .count {
-            font-weight: 400;
-            font-size: 13px;
-            color: var(--wf-muted);
-            margin-left: 6px;
-        }
-        .tx-filters {
-            display: flex;
-            gap: 6px;
-        }
+        .tx-header h3 { font-size: 16px; font-weight: 600; }
+        .tx-header h3 .count { font-weight: 400; font-size: 12px; color: var(--wf-muted); margin-left: 4px; }
+        .tx-filters { display: flex; gap: 4px; }
         .tx-filters button {
             background: transparent;
-            border: 1px solid rgba(255,255,255,0.06);
+            border: 1px solid var(--wf-border);
             color: var(--wf-muted);
-            padding: 4px 14px;
+            padding: 3px 12px;
             border-radius: 30px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
@@ -485,16 +476,13 @@
             border-color: var(--wf-gold);
             color: var(--wf-gold);
         }
-        .tx-filters button:hover {
-            border-color: var(--wf-gold);
-            color: #fff;
-        }
+        .tx-filters button:hover:not(.active) { border-color: var(--wf-gold); color: #fff; }
 
         .tx-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            max-height: 440px;
+            gap: 6px;
+            max-height: 420px;
             overflow-y: auto;
             padding-right: 4px;
         }
@@ -505,112 +493,323 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
+            padding: 10px 14px;
             background: rgba(255,255,255,0.02);
-            border-radius: 14px;
-            border-left: 3px solid transparent;
-            transition: 0.2s;
-        }
-        .tx-item:hover {
-            background: rgba(255,255,255,0.05);
-            border-left-color: var(--wf-gold);
-        }
-        .tx-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            min-width: 0;
-        }
-        .tx-icon {
-            width: 38px;
-            height: 38px;
             border-radius: 12px;
+            border-left: 3px solid transparent;
+            transition: 0.15s;
+        }
+        .tx-item:hover { background: rgba(255,255,255,0.05); border-left-color: var(--wf-gold); }
+        .tx-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .tx-icon {
+            width: 34px; height: 34px;
+            border-radius: 10px;
             background: rgba(205, 19, 9, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--wf-red);
-            font-size: 15px;
+            font-size: 13px;
             flex-shrink: 0;
         }
-        .tx-icon.income {
-            background: rgba(76, 175, 80, 0.12);
-            color: #4caf50;
-        }
+        .tx-icon.income { background: rgba(76, 175, 80, 0.12); color: #4caf50; }
         .tx-info { min-width: 0; }
-        .tx-info .name {
-            color: #fff;
-            font-weight: 500;
-            font-size: 14px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .tx-info .date {
-            color: var(--wf-muted);
-            font-size: 11px;
-            margin-top: 2px;
-        }
-        .tx-amount {
-            font-weight: 700;
-            font-size: 14px;
-            flex-shrink: 0;
-            margin-left: 12px;
-        }
+        .tx-info .name { color: #fff; font-weight: 500; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .tx-info .date { color: var(--wf-muted); font-size: 10px; margin-top: 1px; }
+        .tx-amount { font-weight: 700; font-size: 13px; flex-shrink: 0; margin-left: 10px; }
         .tx-amount.positive { color: #4caf50; }
         .tx-amount.negative { color: var(--wf-red); }
 
-        /* --- CHART (CSS Bars) --- */
-        .chart-section {
-            margin-top: 28px;
-            background: rgba(255,255,255,0.02);
-            border-radius: 20px;
-            padding: 20px 24px 24px;
-            border: 1px solid rgba(255,255,255,0.04);
+        /* ==================== TRANSFER PAGE ==================== */
+        .transfer-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px 0;
         }
-        .chart-section h4 {
-            color: #fff;
-            font-size: 14px;
+        .transfer-container h2 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+        .transfer-container .sub {
+            color: var(--wf-muted);
+            margin-bottom: 28px;
+        }
+        .transfer-form {
+            background: rgba(255,255,255,0.03);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--wf-border);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 18px;
+            color: var(--wf-muted);
+            margin-bottom: 6px;
         }
-        .chart-bars {
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--wf-border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            color: #fff;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: 0.2s;
+            outline: none;
+        }
+        .form-group select:focus,
+        .form-group input:focus {
+            border-color: var(--wf-gold);
+            box-shadow: 0 0 0 3px var(--wf-gold-dim);
+        }
+        .form-group select option { background: #222; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        .btn-primary {
+            background: var(--wf-red);
+            border: none;
+            color: #fff;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-primary:hover {
+            background: var(--wf-red-dark);
+            box-shadow: 0 8px 24px rgba(205, 19, 9, 0.3);
+            transform: scale(1.01);
+        }
+        .recent-contacts {
+            margin-top: 28px;
+        }
+        .recent-contacts h4 {
+            font-size: 14px;
+            color: var(--wf-muted);
+            margin-bottom: 12px;
+        }
+        .contact-grid {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .contact-chip {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--wf-border);
+            border-radius: 40px;
+            padding: 8px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .contact-chip:hover {
+            background: var(--wf-gold-dim);
+            border-color: var(--wf-gold);
+        }
+        .contact-chip i { color: var(--wf-gold); }
+
+        /* ==================== BILL PAY PAGE ==================== */
+        .bill-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .bill-container h2 { font-size: 24px; margin-bottom: 6px; }
+        .bill-container .sub { color: var(--wf-muted); margin-bottom: 28px; }
+        .bill-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .bill-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--wf-border);
+            border-radius: 18px;
+            padding: 20px 22px;
+            transition: 0.2s;
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
-            gap: 10px;
-            height: 120px;
+            align-items: center;
         }
-        .bar-wrap {
+        .bill-card:hover { border-color: var(--wf-gold-dim); background: rgba(255,255,255,0.05); }
+        .bill-info .b-name { font-weight: 600; font-size: 15px; }
+        .bill-info .b-due { font-size: 12px; color: var(--wf-muted); margin-top: 2px; }
+        .bill-info .b-amount { font-weight: 700; color: var(--wf-gold); margin-top: 4px; }
+        .btn-pay {
+            background: transparent;
+            border: 1px solid var(--wf-gold);
+            color: var(--wf-gold);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-pay:hover {
+            background: var(--wf-gold);
+            color: #000;
+        }
+
+        /* ==================== SETTINGS PAGE ==================== */
+        .settings-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .settings-container h2 { font-size: 24px; margin-bottom: 6px; }
+        .settings-container .sub { color: var(--wf-muted); margin-bottom: 28px; }
+        .settings-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--wf-border);
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+            transition: 0.2s;
+        }
+        .settings-card:hover { border-color: var(--wf-gold-dim); }
+        .settings-card .s-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .settings-card .s-head h4 { font-size: 16px; }
+        .settings-card .s-head i { color: var(--wf-gold); font-size: 20px; }
+        .settings-card p { color: var(--wf-muted); font-size: 13px; margin-top: 4px; }
+        .toggle-switch {
+            width: 44px;
+            height: 24px;
+            background: #333;
+            border-radius: 40px;
+            position: relative;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+        }
+        .toggle-switch.active {
+            background: var(--wf-gold);
+        }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        .toggle-switch.active::after {
+            left: 23px;
+        }
+        .settings-divider {
+            border: none;
+            border-top: 1px solid var(--wf-border);
+            margin: 18px 0;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            margin-top: 30px;
+            padding: 24px 0 18px;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            position: relative;
+            z-index: 2;
             display: flex;
             flex-direction: column;
+            gap: 16px;
+        }
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
-            flex: 1;
+            flex-wrap: wrap;
+            gap: 16px;
         }
-        .bar {
-            width: 100%;
-            max-width: 36px;
-            background: linear-gradient(180deg, var(--wf-gold), #8a6f1b);
-            border-radius: 6px 6px 0 0;
-            height: 20px;
-            transition: height 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-            min-height: 4px;
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-        .bar-label {
+        .footer-logo .logo-svg { width: 36px; height: 36px; }
+        .footer-logo .ft-text { font-weight: 700; font-size: 16px; }
+        .footer-logo .ft-text span { color: var(--wf-gold); }
+        .footer-logo .ft-text small { display: block; font-size: 8px; color: var(--wf-muted); letter-spacing: 1px; }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
             color: var(--wf-muted);
-            font-size: 10px;
+            text-decoration: none;
+            font-size: 12px;
             font-weight: 500;
+            transition: 0.2s;
         }
+        .footer-links a:hover { color: var(--wf-gold); }
+        .footer-links .routing {
+            color: var(--wf-gold-dim);
+            font-size: 11px;
+            background: rgba(255,255,255,0.04);
+            padding: 2px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.03);
+        }
+        .footer-bottom p {
+            color: var(--wf-muted);
+            font-size: 11px;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 16px;
+        }
+        .footer-socials a {
+            color: var(--wf-muted);
+            font-size: 16px;
+            transition: 0.2s;
+        }
+        .footer-socials a:hover { color: var(--wf-gold); transform: translateY(-2px); }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 860px) {
             .main-grid { grid-template-columns: 1fr; }
-            .dashboard { padding: 24px 18px; }
+            .dashboard-wrapper { padding: 18px 16px 0; border-radius: 28px; }
             .greeting-section { flex-direction: column; align-items: flex-start; }
             .balance-area { text-align: left; width: 100%; }
-            .balance-area .amount { font-size: 34px; }
+            .balance-area .amount { font-size: 32px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .nav-links button { font-size: 12px; padding: 6px 14px; }
+            .bill-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-top { flex-direction: column; align-items: flex-start; }
             .tx-list { max-height: 300px; }
         }
         @media (max-width: 500px) {
@@ -618,341 +817,574 @@
             .navbar { flex-direction: column; align-items: stretch; }
             .nav-right { justify-content: space-between; }
             .card-number { font-size: 16px; letter-spacing: 2px; }
-            .card-face { padding: 16px; min-height: 170px; }
-            .card-3d-inner { min-height: 170px; }
+            .card-face { padding: 16px; min-height: 160px; }
+            .card-3d-inner { min-height: 160px; }
+            .transfer-form { padding: 18px; }
+            .settings-card { padding: 18px; }
+            .footer-links { gap: 12px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="dashboard">
+<div class="dashboard-wrapper">
 
-        <!-- NAVBAR -->
-        <nav class="navbar animate-in">
-            <div class="logo-wrapper">
-                <!-- Custom Stagecoach-Inspired SVG Logo (Wells Fargo Style) -->
+    <!-- ===================== NAVBAR ===================== -->
+    <nav class="navbar animate-in">
+        <div class="logo-wrapper">
+            <!-- Custom Stagecoach SVG Logo -->
+            <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="46" fill="#cd1309" stroke="#d4af37" stroke-width="4" />
+                <circle cx="50" cy="50" r="36" fill="none" stroke="#d4af37" stroke-width="1.5" opacity="0.3" />
+                <path d="M50 18 L54 38 L70 28 L58 44 L78 50 L58 56 L70 72 L54 62 L50 82 L46 62 L30 72 L42 56 L22 50 L42 44 L30 28 L46 38 Z" fill="#d4af37" opacity="0.9" />
+                <circle cx="50" cy="50" r="10" fill="#cd1309" stroke="#d4af37" stroke-width="2.5" />
+                <circle cx="50" cy="50" r="4" fill="#d4af37" />
+            </svg>
+            <div class="logo-text">
+                Wells Fargo
+                <small>Est. 1852 · UI Concept</small>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <button class="active" data-page="dashboard"><i class="fas fa-th-large"></i> Dashboard</button>
+            <button data-page="transfers"><i class="fas fa-exchange-alt"></i> Transfers</button>
+            <button data-page="billpay"><i class="fas fa-file-invoice"></i> Bill Pay</button>
+            <button data-page="settings"><i class="fas fa-cog"></i> Settings</button>
+        </div>
+
+        <div class="nav-right">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-bell"></i>
+            <div class="clock-display" id="liveClock"><i class="far fa-clock"></i> Loading...</div>
+            <div class="avatar">JD</div>
+        </div>
+    </nav>
+
+    <!-- ===================== PAGES CONTAINER ===================== -->
+    <div class="pages-container">
+
+        <!-- ========== DASHBOARD PAGE ========== -->
+        <section id="page-dashboard" class="page active-page">
+            <!-- Greeting -->
+            <div class="greeting-section animate-in delay-1">
+                <div class="greeting-text">
+                    <h2>Good morning, James <i class="fas fa-wave-square"></i></h2>
+                    <p>Your comprehensive financial overview</p>
+                </div>
+                <div class="balance-area">
+                    <div class="label">Total Balance</div>
+                    <div class="amount" id="mainBalance">$47,000,000 <small>.00</small></div>
+                    <button class="toggle-balance" id="toggleBalanceBtn"><i class="fas fa-eye"></i> Hide Balance</button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid animate-in delay-2">
+                <div class="stat-item">
+                    <div class="s-label"><i class="fas fa-arrow-up" style="color:#4caf50;"></i> Income (YTD)</div>
+                    <div class="s-value gold">$2.84M</div>
+                </div>
+                <div class="stat-item">
+                    <div class="s-label"><i class="fas fa-arrow-down" style="color:#cd1309;"></i> Expenses</div>
+                    <div class="s-value" style="color:#fff;">$1.22M</div>
+                </div>
+                <div class="stat-item">
+                    <div class="s-label"><i class="fas fa-wallet"></i> Invested</div>
+                    <div class="s-value gold">$18.4M</div>
+                </div>
+                <div class="stat-item">
+                    <div class="s-label"><i class="fas fa-chart-line"></i> Portfolio ROI</div>
+                    <div class="s-value" style="color:#4caf50;">+12.4%</div>
+                </div>
+            </div>
+
+            <!-- Main Grid -->
+            <div class="main-grid">
+                <!-- Left: Cards + Chart -->
+                <div class="animate-in delay-3">
+                    <div class="cards-header">
+                        <h3>Your Cards <span>· 2 active</span></h3>
+                        <a href="#"><i class="fas fa-plus-circle"></i> Add</a>
+                    </div>
+                    <div class="card-stack">
+                        <!-- Card 1 -->
+                        <div class="card-3d">
+                            <div class="card-3d-inner">
+                                <div class="card-face card-face-front">
+                                    <div class="card-top-row">
+                                        <div class="card-chip"></div>
+                                        <span class="card-type-badge"><i class="fas fa-credit-card"></i> Visa Signature</span>
+                                    </div>
+                                    <div class="card-number">•••• 4532 •••• 8891</div>
+                                    <div class="card-detail-row">
+                                        <div class="detail"><span class="lbl">Valid Thru</span><span class="val">09/28</span></div>
+                                        <div class="detail"><span class="lbl">CVV</span><span class="val">•••</span></div>
+                                    </div>
+                                    <div class="card-footer-row">
+                                        <span class="holder">JAMES D. WELLS</span>
+                                        <span class="network">✦ SIGNATURE</span>
+                                    </div>
+                                    <span class="demo-tag">DEMO</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="card-3d">
+                            <div class="card-3d-inner">
+                                <div class="card-face card-face-front gold-accent">
+                                    <div class="card-top-row">
+                                        <div class="card-chip"></div>
+                                        <span class="card-type-badge"><i class="fas fa-crown" style="color:var(--wf-gold);"></i> Platinum</span>
+                                    </div>
+                                    <div class="card-number">•••• 6741 •••• 3320</div>
+                                    <div class="card-detail-row">
+                                        <div class="detail"><span class="lbl">Valid Thru</span><span class="val">12/29</span></div>
+                                        <div class="detail"><span class="lbl">CVV</span><span class="val">•••</span></div>
+                                    </div>
+                                    <div class="card-footer-row">
+                                        <span class="holder">JAMES D. WELLS</span>
+                                        <span class="network">✦ PLATINUM</span>
+                                    </div>
+                                    <span class="demo-tag">DEMO</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart -->
+                    <div class="chart-section">
+                        <h4><i class="fas fa-chart-line" style="color:var(--wf-gold); margin-right:8px;"></i>Portfolio Performance (This Week)</h4>
+                        <div class="chart-bars" id="chartBars">
+                            <div class="bar-wrap"><div class="bar" style="height:70px;"></div><span class="bar-label">Mon</span></div>
+                            <div class="bar-wrap"><div class="bar" style="height:45px;"></div><span class="bar-label">Tue</span></div>
+                            <div class="bar-wrap"><div class="bar" style="height:90px;"></div><span class="bar-label">Wed</span></div>
+                            <div class="bar-wrap"><div class="bar" style="height:60px;"></div><span class="bar-label">Thu</span></div>
+                            <div class="bar-wrap"><div class="bar" style="height:110px;"></div><span class="bar-label">Fri</span></div>
+                            <div class="bar-wrap"><div class="bar" style="height:85px;"></div><span class="bar-label">Sat</span></div>
+                            <div class="bar-wrap"><div class="bar" style="height:50px;"></div><span class="bar-label">Sun</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Transactions -->
+                <div class="animate-in delay-4">
+                    <div class="tx-header">
+                        <h3>Recent Activity <span class="count">(50 entries)</span></h3>
+                        <div class="tx-filters">
+                            <button class="active" data-filter="all">All</button>
+                            <button data-filter="income">Credits</button>
+                            <button data-filter="expense">Debits</button>
+                        </div>
+                    </div>
+                    <div class="tx-list" id="transactionList"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== TRANSFERS PAGE ========== -->
+        <section id="page-transfers" class="page">
+            <div class="transfer-container">
+                <h2>Transfer Funds</h2>
+                <p class="sub">Move money between your accounts or to external recipients.</p>
+                <div class="transfer-form">
+                    <div class="form-group">
+                        <label><i class="fas fa-arrow-right" style="color:var(--wf-gold); margin-right:6px;"></i> From Account</label>
+                        <select>
+                            <option>Platinum Checking (••••8891) - $47,000,000.00</option>
+                            <option>Signature Savings (••••3320) - $12,400,000.00</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-user" style="color:var(--wf-gold); margin-right:6px;"></i> To Recipient</label>
+                        <select>
+                            <option>James D. Wells (Self)</option>
+                            <option>Sarah K. Johnson</option>
+                            <option>Acme Global Corp</option>
+                            <option>TechFund Investments</option>
+                            <option>Add New Recipient...</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Amount ($)</label>
+                            <input type="number" placeholder="0.00" value="5000.00" />
+                        </div>
+                        <div class="form-group">
+                            <label>Memo (Optional)</label>
+                            <input type="text" placeholder="e.g. Monthly transfer" />
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="alert('✅ Transfer of $5,000.00 submitted for processing. Reference #WF-2026-07-16.')">
+                        <i class="fas fa-paper-plane" style="margin-right:10px;"></i> Submit Transfer
+                    </button>
+                </div>
+
+                <div class="recent-contacts">
+                    <h4><i class="fas fa-clock" style="color:var(--wf-gold); margin-right:8px;"></i> Recent Recipients</h4>
+                    <div class="contact-grid">
+                        <div class="contact-chip"><i class="fas fa-user-circle"></i> Sarah Johnson</div>
+                        <div class="contact-chip"><i class="fas fa-building"></i> Acme Corp</div>
+                        <div class="contact-chip"><i class="fas fa-chart-line"></i> TechFund</div>
+                        <div class="contact-chip"><i class="fas fa-home"></i> Mortgage Pay</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== BILL PAY PAGE ========== -->
+        <section id="page-billpay" class="page">
+            <div class="bill-container">
+                <h2>Bill Payments</h2>
+                <p class="sub">View and pay your scheduled bills instantly.</p>
+                <div class="bill-grid">
+                    <div class="bill-card">
+                        <div class="bill-info">
+                            <div class="b-name"><i class="fas fa-bolt" style="color:var(--wf-gold); margin-right:8px;"></i> City Utilities</div>
+                            <div class="b-due">Due: July 22, 2026</div>
+                            <div class="b-amount">$1,240.00</div>
+                        </div>
+                        <button class="btn-pay" onclick="alert('✅ Utility payment of $1,240.00 scheduled.')">Pay Now</button>
+                    </div>
+                    <div class="bill-card">
+                        <div class="bill-info">
+                            <div class="b-name"><i class="fas fa-wifi" style="color:var(--wf-gold); margin-right:8px;"></i> Global Internet</div>
+                            <div class="b-due">Due: July 25, 2026</div>
+                            <div class="b-amount">$420.00</div>
+                        </div>
+                        <button class="btn-pay" onclick="alert('✅ Internet payment of $420.00 scheduled.')">Pay Now</button>
+                    </div>
+                    <div class="bill-card">
+                        <div class="bill-info">
+                            <div class="b-name"><i class="fas fa-phone-alt" style="color:var(--wf-gold); margin-right:8px;"></i> Wireless Plan</div>
+                            <div class="b-due">Due: July 28, 2026</div>
+                            <div class="b-amount">$890.00</div>
+                        </div>
+                        <button class="btn-pay" onclick="alert('✅ Wireless payment of $890.00 scheduled.')">Pay Now</button>
+                    </div>
+                    <div class="bill-card">
+                        <div class="bill-info">
+                            <div class="b-name"><i class="fas fa-home" style="color:var(--wf-gold); margin-right:8px;"></i> Property Tax</div>
+                            <div class="b-due">Due: Aug 1, 2026</div>
+                            <div class="b-amount">$12,450.00</div>
+                        </div>
+                        <button class="btn-pay" onclick="alert('✅ Property tax payment of $12,450.00 scheduled.')">Pay Now</button>
+                    </div>
+                    <div class="bill-card">
+                        <div class="bill-info">
+                            <div class="b-name"><i class="fas fa-credit-card" style="color:var(--wf-gold); margin-right:8px;"></i> Visa Signature Card</div>
+                            <div class="b-due">Due: Aug 5, 2026</div>
+                            <div class="b-amount">$22,100.00</div>
+                        </div>
+                        <button class="btn-pay" onclick="alert('✅ Credit card payment of $22,100.00 scheduled.')">Pay Now</button>
+                    </div>
+                    <div class="bill-card">
+                        <div class="bill-info">
+                            <div class="b-name"><i class="fas fa-car" style="color:var(--wf-gold); margin-right:8px;"></i> Auto Loan</div>
+                            <div class="b-due">Due: Aug 10, 2026</div>
+                            <div class="b-amount">$18,000.00</div>
+                        </div>
+                        <button class="btn-pay" onclick="alert('✅ Auto loan payment of $18,000.00 scheduled.')">Pay Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SETTINGS PAGE ========== -->
+        <section id="page-settings" class="page">
+            <div class="settings-container">
+                <h2>Settings & Preferences</h2>
+                <p class="sub">Manage your profile, security, and notification preferences.</p>
+
+                <div class="settings-card">
+                    <div class="s-head">
+                        <h4><i class="fas fa-user-circle" style="color:var(--wf-gold); margin-right:10px;"></i> Profile Information</h4>
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <p><strong>Name:</strong> James D. Wells</p>
+                    <p><strong>Email:</strong> james.wells@premier.com</p>
+                    <p><strong>Phone:</strong> +1 (415) 555-0192</p>
+                </div>
+
+                <div class="settings-card">
+                    <div class="s-head">
+                        <h4><i class="fas fa-bell" style="color:var(--wf-gold); margin-right:10px;"></i> Notifications</h4>
+                        <button class="toggle-switch active" onclick="this.classList.toggle('active')"></button>
+                    </div>
+                    <p>Push notifications for transactions, security alerts, and offers.</p>
+                </div>
+
+                <div class="settings-card">
+                    <div class="s-head">
+                        <h4><i class="fas fa-moon" style="color:var(--wf-gold); margin-right:10px;"></i> Dark Mode</h4>
+                        <button class="toggle-switch active" onclick="this.classList.toggle('active')"></button>
+                    </div>
+                    <p>Dark theme is currently active (default).</p>
+                </div>
+
+                <div class="settings-card">
+                    <div class="s-head">
+                        <h4><i class="fas fa-shield-alt" style="color:var(--wf-gold); margin-right:10px;"></i> Security</h4>
+                        <i class="fas fa-chevron-right" style="color:var(--wf-muted);"></i>
+                    </div>
+                    <p>Two-factor authentication, trusted devices, and login history.</p>
+                    <hr class="settings-divider" />
+                    <button class="btn-primary" style="width:auto; padding:10px 28px; font-size:13px; background:transparent; border:1px solid var(--wf-red); color:var(--wf-red);" onclick="alert('🔒 Security settings updated.')">
+                        <i class="fas fa-lock"></i> Update Security
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-logo">
                 <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="50" cy="50" r="46" fill="#cd1309" stroke="#d4af37" stroke-width="4" />
                     <circle cx="50" cy="50" r="36" fill="none" stroke="#d4af37" stroke-width="1.5" opacity="0.3" />
-                    <!-- Wagon Wheel / Stagecoach Spokes -->
                     <path d="M50 18 L54 38 L70 28 L58 44 L78 50 L58 56 L70 72 L54 62 L50 82 L46 62 L30 72 L42 56 L22 50 L42 44 L30 28 L46 38 Z" fill="#d4af37" opacity="0.9" />
                     <circle cx="50" cy="50" r="10" fill="#cd1309" stroke="#d4af37" stroke-width="2.5" />
                     <circle cx="50" cy="50" r="4" fill="#d4af37" />
                 </svg>
-                <div class="logo-text">
-                    Wells Fargo
-                    <small>Est. 1852 · UI Concept</small>
+                <div class="ft-text">
+                    Wells Fargo <span>·</span> UI Concept
+                    <small>Educational Front-End Project</small>
                 </div>
             </div>
-            <div class="nav-right">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-bell"></i>
-                <div class="clock-display" id="liveClock"><i class="far fa-clock"></i> Loading...</div>
-                <div class="avatar">JD</div>
-            </div>
-        </nav>
-
-        <!-- GREETING & BALANCE -->
-        <section class="greeting-section animate-in delay-1">
-            <div class="greeting-text">
-                <h2>Good morning, James <i class="fas fa-wave-square"></i></h2>
-                <p>Your premier banking dashboard is ready</p>
-            </div>
-            <div class="balance-area">
-                <div class="label">Total Balance</div>
-                <div class="amount" id="mainBalance">$47,000,000 <small>.00</small></div>
-                <button class="toggle-balance" id="toggleBalanceBtn"><i class="fas fa-eye"></i> Hide Balance</button>
-            </div>
-        </section>
-
-        <!-- STATS -->
-        <div class="stats-grid animate-in delay-2">
-            <div class="stat-item">
-                <div class="s-label"><i class="fas fa-arrow-up" style="color:#4caf50; margin-right:4px;"></i> Income (YTD)</div>
-                <div class="s-value gold">$2.84M</div>
-            </div>
-            <div class="stat-item">
-                <div class="s-label"><i class="fas fa-arrow-down" style="color:#cd1309; margin-right:4px;"></i> Expenses</div>
-                <div class="s-value" style="color:#fff;">$1.22M</div>
-            </div>
-            <div class="stat-item">
-                <div class="s-label"><i class="fas fa-wallet"></i> Invested</div>
-                <div class="s-value gold">$18.4M</div>
-            </div>
-            <div class="stat-item">
-                <div class="s-label"><i class="fas fa-chart-line"></i> Portfolio ROI</div>
-                <div class="s-value" style="color:#4caf50;">+12.4%</div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Security</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact</a>
+                <span class="routing"><i class="fas fa-university"></i> Routing: 121000248</span>
             </div>
         </div>
-
-        <!-- MAIN GRID -->
-        <div class="main-grid">
-
-            <!-- LEFT COLUMN: CARDS + CHART -->
-            <div class="animate-in delay-3">
-                <div class="cards-header">
-                    <h3>Your Cards <span>· 2 active</span></h3>
-                    <a href="#"><i class="fas fa-plus-circle"></i> Add</a>
-                </div>
-                <div class="card-stack">
-                    <!-- CARD 1: Visa Signature (Black/Red) -->
-                    <div class="card-3d">
-                        <div class="card-3d-inner">
-                            <div class="card-face card-face-front">
-                                <div class="card-top-row">
-                                    <div class="card-chip"></div>
-                                    <span class="card-type-badge"><i class="fas fa-credit-card"></i> Visa Signature</span>
-                                </div>
-                                <div class="card-number">•••• 4532 •••• 8891</div>
-                                <div class="card-detail-row">
-                                    <div class="detail"><span class="lbl">Valid Thru</span><span class="val">09/28</span></div>
-                                    <div class="detail"><span class="lbl">CVV</span><span class="val">•••</span></div>
-                                </div>
-                                <div class="card-footer-row">
-                                    <span class="holder">JAMES D. WELLS</span>
-                                    <span class="network">✦ SIGNATURE</span>
-                                </div>
-                                <span class="demo-tag">DEMO</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD 2: Platinum (Gold Accent) -->
-                    <div class="card-3d">
-                        <div class="card-3d-inner">
-                            <div class="card-face card-face-front gold-accent">
-                                <div class="card-top-row">
-                                    <div class="card-chip"></div>
-                                    <span class="card-type-badge"><i class="fas fa-crown" style="color:var(--wf-gold);"></i> Platinum</span>
-                                </div>
-                                <div class="card-number">•••• 6741 •••• 3320</div>
-                                <div class="card-detail-row">
-                                    <div class="detail"><span class="lbl">Valid Thru</span><span class="val">12/29</span></div>
-                                    <div class="detail"><span class="lbl">CVV</span><span class="val">•••</span></div>
-                                </div>
-                                <div class="card-footer-row">
-                                    <span class="holder">JAMES D. WELLS</span>
-                                    <span class="network">✦ PLATINUM</span>
-                                </div>
-                                <span class="demo-tag">DEMO</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CHART -->
-                <div class="chart-section">
-                    <h4><i class="fas fa-chart-line" style="color:var(--wf-gold); margin-right:8px;"></i>Portfolio Performance (This Week)</h4>
-                    <div class="chart-bars" id="chartBars">
-                        <div class="bar-wrap"><div class="bar" style="height:70px;"></div><span class="bar-label">Mon</span></div>
-                        <div class="bar-wrap"><div class="bar" style="height:45px;"></div><span class="bar-label">Tue</span></div>
-                        <div class="bar-wrap"><div class="bar" style="height:90px;"></div><span class="bar-label">Wed</span></div>
-                        <div class="bar-wrap"><div class="bar" style="height:60px;"></div><span class="bar-label">Thu</span></div>
-                        <div class="bar-wrap"><div class="bar" style="height:110px;"></div><span class="bar-label">Fri</span></div>
-                        <div class="bar-wrap"><div class="bar" style="height:85px;"></div><span class="bar-label">Sat</span></div>
-                        <div class="bar-wrap"><div class="bar" style="height:50px;"></div><span class="bar-label">Sun</span></div>
-                    </div>
-                </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Wells Fargo UI Concept · Built for Front-End Development Final Project. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
-
-            <!-- RIGHT COLUMN: 40 TRANSACTIONS -->
-            <div class="animate-in delay-4">
-                <div class="tx-header">
-                    <h3>Recent Activity <span class="count">(40 entries)</span></h3>
-                    <div class="tx-filters">
-                        <button class="active" data-filter="all">All</button>
-                        <button data-filter="income">Credits</button>
-                        <button data-filter="expense">Debits</button>
-                    </div>
-                </div>
-                <div class="tx-list" id="transactionList">
-                    <!-- Injected by JS -->
-                </div>
-            </div>
-
         </div>
-    </div>
+    </footer>
 
-    <script>
-        (function() {
-            'use strict';
+</div>
 
-            // --- 1. LIVE CLOCK ---
-            function updateClock() {
-                const now = new Date();
-                const opts = { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
-                    second: '2-digit' };
-                document.getElementById('liveClock').innerHTML =
-                    `<i class="far fa-clock"></i> ${now.toLocaleDateString('en-US', opts)}`;
-            }
-            updateClock();
-            setInterval(updateClock, 1000);
+<script>
+    (function() {
+        'use strict';
 
-            // --- 2. BALANCE TOGGLE ---
-            const balanceEl = document.getElementById('mainBalance');
-            const toggleBtn = document.getElementById('toggleBalanceBtn');
-            let isHidden = false;
+        // --- 1. NAVIGATION (SPA Routing) ---
+        const navButtons = document.querySelectorAll('.nav-links button');
+        const pages = {
+            dashboard: document.getElementById('page-dashboard'),
+            transfers: document.getElementById('page-transfers'),
+            billpay: document.getElementById('page-billpay'),
+            settings: document.getElementById('page-settings')
+        };
 
-            toggleBtn.addEventListener('click', function() {
-                isHidden = !isHidden;
-                if (isHidden) {
-                    balanceEl.classList.add('hidden-balance');
-                    this.innerHTML = '<i class="fas fa-eye-slash"></i> Show Balance';
-                } else {
-                    balanceEl.classList.remove('hidden-balance');
-                    this.innerHTML = '<i class="fas fa-eye"></i> Hide Balance';
-                }
+        function showPage(pageId) {
+            // Hide all pages
+            Object.values(pages).forEach(p => p.classList.remove('active-page'));
+            // Show target
+            if (pages[pageId]) pages[pageId].classList.add('active-page');
+            // Update nav buttons
+            navButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.page === pageId) btn.classList.add('active');
             });
-
-            // --- 3. GENERATE 40 REALISTIC TRANSACTIONS (Wells Fargo Style) ---
-            const merchantPool = [
-                { name: 'Acme Global Corp', type: 'income' },
-                { name: 'TechFund Dividend', type: 'income' },
-                { name: 'Salary · Wells Fargo', type: 'income' },
-                { name: 'Freelance · Design Co', type: 'income' },
-                { name: 'Stock Vesting · Alphabet', type: 'income' },
-                { name: 'Refund · Amazon', type: 'income' },
-                { name: 'Interest Earned', type: 'income' },
-                { name: 'Consulting · McKinsey', type: 'income' },
-                { name: 'Portfolio Rebalance', type: 'expense' },
-                { name: 'Mortgage Payment', type: 'expense' },
-                { name: 'Private Jet Charter', type: 'expense' },
-                { name: 'Luxury Boutique · Rodeo', type: 'expense' },
-                { name: 'Michelin Dining', type: 'expense' },
-                { name: 'Hotel · Ritz Carlton', type: 'expense' },
-                { name: 'Car Lease · Porsche', type: 'expense' },
-                { name: 'Yacht Maintenance', type: 'expense' },
-                { name: 'International School', type: 'expense' },
-                { name: 'Art Gallery Purchase', type: 'expense' },
-                { name: 'Charity · Red Cross', type: 'expense' },
-                { name: 'Insurance Premium', type: 'expense' },
-                { name: 'Estate Utilities', type: 'expense' },
-                { name: 'Golf Club Membership', type: 'expense' },
-                { name: 'Sotheby\'s Auction', type: 'expense' },
-                { name: 'Helicopter Transfer', type: 'expense' },
-                { name: 'Private Chef Services', type: 'expense' },
-                { name: 'Wine Cellar Acquisition', type: 'expense' },
-                { name: 'Spa & Wellness Retreat', type: 'expense' },
-                { name: 'First Class Flights', type: 'expense' },
-                { name: 'Property Tax', type: 'expense' },
-                { name: 'Wealth Management Fee', type: 'expense' },
-                { name: 'Dividend Reinvestment', type: 'income' },
-                { name: 'Bonus · Q3 Performance', type: 'income' },
-                { name: 'Cashback Rewards', type: 'income' },
-                { name: 'Security Deposit Return', type: 'income' },
-                { name: 'Business Revenue', type: 'income' },
-                { name: 'Capital Gains', type: 'income' },
-                { name: 'Transfer from Savings', type: 'income' },
-                { name: 'Venture Capital Payout', type: 'income' },
-                { name: 'Real Estate Rental', type: 'income' },
-                { name: 'Tax Refund', type: 'income' }
-            ];
-
-            function generateTransactions() {
-                const now = new Date();
-                const transactions = [];
-                const count = 40;
-
-                for (let i = 0; i < count; i++) {
-                    const m = merchantPool[i % merchantPool.length];
-                    // Random amount logic
-                    let base = 0;
-                    if (m.type === 'income') {
-                        base = 2000 + Math.random() * 1500000;
-                    } else {
-                        base = 500 + Math.random() * 800000;
-                    }
-                    // Make it look realistic
-                    let amount = Math.round(base / 10) * 10;
-                    if (amount > 10000) amount = Math.round(amount / 100) * 100;
-
-                    const isIncome = m.type === 'income';
-                    const sign = isIncome ? '+' : '-';
-                    const formatted = `${sign}$${amount.toLocaleString()}.00`;
-
-                    // Date going backwards
-                    const d = new Date(now);
-                    d.setDate(d.getDate() - i - Math.floor(Math.random() * 2));
-                    const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                    const timeStr = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-
-                    transactions.push({
-                        id: i + 1,
-                        name: m.name,
-                        date: `${dateStr}, ${timeStr}`,
-                        amount: formatted,
-                        type: m.type,
-                        icon: isIncome ? 'fa-arrow-down' : 'fa-arrow-up',
-                        iconClass: isIncome ? 'income' : ''
-                    });
-                }
-                // Sort by date descending (newest first)
-                transactions.sort((a, b) => {
-                    const da = new Date(a.date);
-                    const db = new Date(b.date);
-                    return db - da;
-                });
-                return transactions;
+            // Re-animate charts if switching to dashboard
+            if (pageId === 'dashboard') {
+                setTimeout(animateChart, 300);
             }
+        }
 
-            const transactions = generateTransactions();
-            const txList = document.getElementById('transactionList');
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                showPage(this.dataset.page);
+            });
+        });
 
-            function renderTransactions(filter = 'all') {
-                const filtered = filter === 'all' ? transactions : transactions.filter(tx => tx.type === filter);
-                txList.innerHTML = '';
-                if (filtered.length === 0) {
-                    txList.innerHTML =
-                        `<div style="color:var(--wf-muted);text-align:center;padding:30px 0;">No matching transactions.</div>`;
-                    return;
-                }
-                filtered.forEach(tx => {
-                    const div = document.createElement('div');
-                    div.className = 'tx-item';
-                    div.innerHTML = `
-                        <div class="tx-left">
-                            <div class="tx-icon ${tx.iconClass}"><i class="fas ${tx.icon}"></i></div>
-                            <div class="tx-info">
-                                <div class="name">${tx.name}</div>
-                                <div class="date">${tx.date}</div>
-                            </div>
+        // --- 2. LIVE CLOCK ---
+        function updateClock() {
+            const now = new Date();
+            const opts = { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
+                second: '2-digit' };
+            document.getElementById('liveClock').innerHTML =
+                `<i class="far fa-clock"></i> ${now.toLocaleDateString('en-US', opts)}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // --- 3. BALANCE TOGGLE ---
+        const balanceEl = document.getElementById('mainBalance');
+        const toggleBtn = document.getElementById('toggleBalanceBtn');
+        let isHidden = false;
+
+        toggleBtn.addEventListener('click', function() {
+            isHidden = !isHidden;
+            if (isHidden) {
+                balanceEl.classList.add('hidden-balance');
+                this.innerHTML = '<i class="fas fa-eye-slash"></i> Show Balance';
+            } else {
+                balanceEl.classList.remove('hidden-balance');
+                this.innerHTML = '<i class="fas fa-eye"></i> Hide Balance';
+            }
+        });
+
+        // --- 4. GENERATE 50 TRANSACTIONS ---
+        const merchantPool = [
+            { name: 'Acme Global Corp', type: 'income' },
+            { name: 'TechFund Dividend', type: 'income' },
+            { name: 'Salary · Wells Fargo', type: 'income' },
+            { name: 'Freelance · Design Co', type: 'income' },
+            { name: 'Stock Vesting · Alphabet', type: 'income' },
+            { name: 'Refund · Amazon', type: 'income' },
+            { name: 'Interest Earned', type: 'income' },
+            { name: 'Consulting · McKinsey', type: 'income' },
+            { name: 'Capital Gains', type: 'income' },
+            { name: 'Real Estate Rental', type: 'income' },
+            { name: 'Tax Refund', type: 'income' },
+            { name: 'Bonus · Q3', type: 'income' },
+            { name: 'Portfolio Rebalance', type: 'expense' },
+            { name: 'Mortgage Payment', type: 'expense' },
+            { name: 'Private Jet Charter', type: 'expense' },
+            { name: 'Luxury Boutique · Rodeo', type: 'expense' },
+            { name: 'Michelin Dining', type: 'expense' },
+            { name: 'Hotel · Ritz Carlton', type: 'expense' },
+            { name: 'Car Lease · Porsche', type: 'expense' },
+            { name: 'Yacht Maintenance', type: 'expense' },
+            { name: 'International School', type: 'expense' },
+            { name: 'Art Gallery Purchase', type: 'expense' },
+            { name: 'Charity · Red Cross', type: 'expense' },
+            { name: 'Insurance Premium', type: 'expense' },
+            { name: 'Estate Utilities', type: 'expense' },
+            { name: 'Golf Club Membership', type: 'expense' },
+            { name: 'Sotheby\'s Auction', type: 'expense' },
+            { name: 'Helicopter Transfer', type: 'expense' },
+            { name: 'Private Chef', type: 'expense' },
+            { name: 'Wine Cellar', type: 'expense' },
+            { name: 'Spa & Wellness', type: 'expense' },
+            { name: 'First Class Flights', type: 'expense' },
+            { name: 'Property Tax', type: 'expense' },
+            { name: 'Wealth Management Fee', type: 'expense' },
+            { name: 'Dividend Reinvestment', type: 'income' },
+            { name: 'Cashback Rewards', type: 'income' },
+            { name: 'Security Deposit Return', type: 'income' },
+            { name: 'Business Revenue', type: 'income' },
+            { name: 'Transfer from Savings', type: 'income' },
+            { name: 'Venture Capital Payout', type: 'income' },
+            { name: 'Crypto Profit', type: 'income' },
+            { name: 'Royalty Payment', type: 'income' },
+            { name: 'Electric Vehicle Credit', type: 'income' },
+            { name: 'Home Renovation', type: 'expense' },
+            { name: 'Gym Membership', type: 'expense' },
+            { name: 'Streaming Services', type: 'expense' },
+            { name: 'Cloud Storage', type: 'expense' },
+            { name: 'Pet Care', type: 'expense' },
+            { name: 'Dry Cleaning', type: 'expense' },
+            { name: 'Parking Garage', type: 'expense' }
+        ];
+
+        function generateTransactions() {
+            const now = new Date();
+            const txs = [];
+            for (let i = 0; i < 50; i++) {
+                const m = merchantPool[i % merchantPool.length];
+                let base = m.type === 'income' ? 2000 + Math.random() * 2000000 : 500 + Math.random() * 900000;
+                let amount = Math.round(base / 10) * 10;
+                if (amount > 10000) amount = Math.round(amount / 100) * 100;
+
+                const isIncome = m.type === 'income';
+                const sign = isIncome ? '+' : '-';
+                const formatted = `${sign}$${amount.toLocaleString()}.00`;
+
+                const d = new Date(now);
+                d.setDate(d.getDate() - i - Math.floor(Math.random() * 2));
+                const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                const timeStr = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                txs.push({
+                    id: i + 1,
+                    name: m.name,
+                    date: `${dateStr}, ${timeStr}`,
+                    amount: formatted,
+                    type: m.type,
+                    icon: isIncome ? 'fa-arrow-down' : 'fa-arrow-up',
+                    iconClass: isIncome ? 'income' : ''
+                });
+            }
+            txs.sort((a, b) => new Date(b.date) - new Date(a.date));
+            return txs;
+        }
+
+        const transactions = generateTransactions();
+        const txList = document.getElementById('transactionList');
+
+        function renderTransactions(filter = 'all') {
+            const filtered = filter === 'all' ? transactions : transactions.filter(tx => tx.type === filter);
+            txList.innerHTML = '';
+            if (filtered.length === 0) {
+                txList.innerHTML =
+                    `<div style="color:var(--wf-muted);text-align:center;padding:20px 0;font-size:14px;">No matching transactions.</div>`;
+                return;
+            }
+            filtered.forEach(tx => {
+                const div = document.createElement('div');
+                div.className = 'tx-item';
+                div.innerHTML = `
+                    <div class="tx-left">
+                        <div class="tx-icon ${tx.iconClass}"><i class="fas ${tx.icon}"></i></div>
+                        <div class="tx-info">
+                            <div class="name">${tx.name}</div>
+                            <div class="date">${tx.date}</div>
                         </div>
-                        <div class="tx-amount ${tx.type === 'income' ? 'positive' : 'negative'}">${tx.amount}</div>
-                    `;
-                    txList.appendChild(div);
-                });
-            }
-
-            // Initial render
-            renderTransactions('all');
-
-            // Filter Buttons
-            document.querySelectorAll('.tx-filters button').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.tx-filters button').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    renderTransactions(this.dataset.filter);
-                });
+                    </div>
+                    <div class="tx-amount ${tx.type === 'income' ? 'positive' : 'negative'}">${tx.amount}</div>
+                `;
+                txList.appendChild(div);
             });
+        }
 
-            // --- 4. ANIMATE CHART BARS ---
+        // Initial render
+        renderTransactions('all');
+
+        // Filter buttons
+        document.querySelectorAll('.tx-filters button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tx-filters button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderTransactions(this.dataset.filter);
+            });
+        });
+
+        // --- 5. ANIMATE CHART BARS ---
+        function animateChart() {
             const bars = document.querySelectorAll('.bar');
             bars.forEach((bar, index) => {
                 const targetHeight = bar.style.height;
                 bar.style.height = '4px';
                 setTimeout(() => {
                     bar.style.height = targetHeight;
-                }, 300 + (index * 70));
+                }, 200 + (index * 60));
             });
+        }
+        animateChart();
 
-            // --- 5. ACADEMIC CONSOLE LOG ---
-            console.log('%c🏦 Wells Fargo UI Concept Loaded', 'font-size:22px; font-weight:bold; color:#d4af37;');
-            console.log('%c📘 Front-End Development Final Project', 'font-size:14px; color:#8a8a8a;');
-            console.log(`✅ ${transactions.length} dynamic transactions generated.`);
-            console.log('⚡ Features: SVG Logo, 3D Cards, Live Clock, Balance Toggle, Smart Filters, Animated Chart.');
+        // --- 6. ACADEMIC CONSOLE LOG ---
+        console.log('%c🏦 Wells Fargo Full-UI Concept Loaded', 'font-size:22px; font-weight:bold; color:#d4af37;');
+        console.log('%c📘 Front-End Development Final Project', 'font-size:14px; color:#8a8a8a;');
+        console.log(`✅ ${transactions.length} dynamic transactions generated.`);
+        console.log('⚡ 4 Pages: Dashboard, Transfers, Bill Pay, Settings.');
+        console.log('🔒 All data is mock educational demo data.');
 
-        })();
-    </script>
+    })();
+</script>
 
 </body>
 </html>
